@@ -22,7 +22,7 @@ public class DBConnection {
         try {
             Class.forName(MYSQLJDBCDriver);
 
-            conn = DriverManager.getConnection(jdbcURL, username, "53688842548");
+            conn = DriverManager.getConnection(jdbcURL, username, "");
 
             System.out.println("Connection successful");
         } catch (SQLException e) {
