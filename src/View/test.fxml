@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.AppointmentScreenController">
+    <children>
+        <MenuBar VBox.vgrow="NEVER">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="New" />
+                        <MenuItem mnemonicParsing="false" text="Open…" />
+                        <Menu mnemonicParsing="false" text="Open Recent" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                        <MenuItem mnemonicParsing="false" text="Save" />
+                        <MenuItem mnemonicParsing="false" text="Save As…" />
+                        <MenuItem mnemonicParsing="false" text="Revert" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Preferences…" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Quit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Undo" />
+                        <MenuItem mnemonicParsing="false" text="Redo" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Cut" />
+                        <MenuItem mnemonicParsing="false" text="Copy" />
+                        <MenuItem mnemonicParsing="false" text="Paste" />
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="Select All" />
+                        <MenuItem mnemonicParsing="false" text="Unselect All" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+            <children>
+                <Text layoutX="225.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="APPOINTMENTS">
+                    <font>
+                        <Font name="System Bold" size="17.0" />
+                    </font>
+                </Text>
+                <TextField fx:id="apptidbox" disable="true" editable="false" layoutX="14.0" layoutY="53.0" onAction="#apptidbox" prefHeight="25.0" prefWidth="149.0" text="Auto-Generated" />
+                <TextField fx:id="titlebox" layoutX="171.0" layoutY="53.0" onAction="#titlebox" promptText="TITLE" />
+                <TextField fx:id="descriptionbox" layoutX="332.0" layoutY="53.0" onAction="#descriptionbox" promptText="DESCRIPTION" />
+                <ComboBox fx:id="contactbox" layoutX="14.0" layoutY="90.0" onAction="#contactbox" prefWidth="150.0" promptText="CONTACT" />
+                <DatePicker fx:id="startdate" layoutX="14.0" layoutY="125.0" onAction="#startdatepicker" prefHeight="25.0" prefWidth="150.0" promptText="START DATE" />
+                <DatePicker fx:id="enddate" layoutX="332.0" layoutY="125.0" onAction="#enddatecombobox" prefHeight="25.0" prefWidth="150.0" promptText="END DATE " />
+                <ComboBox fx:id="customeridbox" layoutX="332.0" layoutY="90.0" onAction="#customeridbox" prefWidth="150.0" promptText="CUSTOMER ID" />
+                <ComboBox fx:id="useridbox" layoutX="489.0" layoutY="90.0" onAction="#useridbox" prefHeight="25.0" prefWidth="133.0" promptText="USER ID" />
+                <Button fx:id="addbutton" layoutX="224.0" layoutY="155.0" mnemonicParsing="false" onAction="#addnewappt" text="ADD" textFill="#008f10">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font></Button>
+                <Button fx:id="updatebutton" layoutX="428.0" layoutY="155.0" mnemonicParsing="false" onAction="#updateappt" text="UPDATE" textFill="#1e9a06">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font></Button>
+                <Button fx:id="deletebutton" layoutX="500.0" layoutY="155.0" mnemonicParsing="false" onAction="#deleteappt" text="DELETE">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font></Button>
+                <Button fx:id="cancelbutton" cancelButton="true" layoutX="564.0" layoutY="155.0" mnemonicParsing="false" onAction="#cancelbutton" text="CANCEL" textFill="#c30303">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Button>
+                <TableView fx:id="calendartable" layoutX="15.0" layoutY="211.0" prefHeight="150.0" prefWidth="618.0">
+                    <columns>
+                        <TableColumn fx:id="apptidcol" prefWidth="53.0" text="APPT ID" />
+                        <TableColumn fx:id="titlecol" minWidth="6.0" prefWidth="53.0" text="TITLE" />
+                        <TableColumn fx:id="descriptcol" prefWidth="73.0" text="DESCRIPTION" />
+                        <TableColumn fx:id="locationcol" prefWidth="75.0" text="LOCATION" />
+                        <TableColumn fx:id="contactcol" prefWidth="54.0" text="CONTACT" />
+                        <TableColumn fx:id="typecol" prefWidth="49.0" text="TYPE" />
+                        <TableColumn fx:id="startcol" prefWidth="70.0" text="START DATE &amp; TIME" />
+                        <TableColumn fx:id="endcol" prefWidth="85.0" text="END DATE &amp; TIME" />
+                        <TableColumn fx:id="custidcol" prefWidth="51.0" text="CUSTOMER ID" />
+                        <TableColumn fx:id="useridcol" prefWidth="59.0" text="USER ID" />
+                    </columns>
+                </TableView>
+                <RadioButton fx:id="viewmonth" layoutX="139.0" layoutY="159.0" mnemonicParsing="false" onAction="#viewmonthradio" text="MONTH">
+                    <toggleGroup>
+                        <ToggleGroup fx:id="radiotogglegrp" />
+                    </toggleGroup></RadioButton>
+                <RadioButton fx:id="viewweek" layoutX="66.0" layoutY="159.0" mnemonicParsing="false" onAction="#viewweekradio" prefHeight="17.0" prefWidth="58.0" text="WEEK" toggleGroup="$radiotogglegrp" />
+                <ComboBox fx:id="starttime" layoutX="171.0" layoutY="125.0" onAction="#starttimecombobox" prefWidth="150.0" promptText="START TIME" />
+                <ComboBox fx:id="endtime" layoutX="489.0" layoutY="125.0" onAction="#endtimecombobox" prefHeight="25.0" prefWidth="133.0" promptText="END TIME" />
+                <TextField fx:id="typefield" layoutX="171.0" layoutY="90.0" promptText="TYPE" />
+                <TextField fx:id="locationfield" layoutX="491.0" layoutY="53.0" prefHeight="25.0" prefWidth="133.0" promptText="LOCATION" />
+                <Button fx:id="SelectedApptbutton" layoutX="273.0" layoutY="155.0" mnemonicParsing="false" onAction="#SelectedAppointment" text="SELECT APPOINTMENT">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Button>
+                <RadioButton fx:id="viewall" layoutX="15.0" layoutY="159.0" mnemonicParsing="false" onAction="#viewallbutton" text="ALL" toggleGroup="$radiotogglegrp" />
+                <Button fx:id="showbutton" layoutX="16.0" layoutY="180.0" mnemonicParsing="false" onAction="#showweekmonthallbutton" prefHeight="3.0" prefWidth="100.0" text="SHOW" />
+            </children>
+        </AnchorPane>
+    </children>
+</VBox>

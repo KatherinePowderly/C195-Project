@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ccc6ee;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="Header" alignment="CENTER" layoutX="127.0" layoutY="52.0" prefHeight="32.0" prefWidth="294.0" text="CREATE NEW CUSTOMER" textAlignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="IDLabel" layoutX="30.0" layoutY="112.0" text="ID" />
+      <Label fx:id="NameLabel" layoutX="23.0" layoutY="163.0" text="NAME" />
+      <Label fx:id="AddressLabel" layoutX="23.0" layoutY="212.0" text="ADDRESS" />
+      <Label fx:id="PostalCodeLabel" layoutX="22.0" layoutY="266.0" text="POSTAL CODE" />
+      <Label fx:id="PhoneLabel" layoutX="19.0" layoutY="319.0" text="PHONE" />
+      <Label fx:id="CountryLabel" layoutX="451.0" layoutY="99.0" text="COUNTRY" />
+      <Label fx:id="DivisionLabel" layoutX="455.0" layoutY="193.0" text="DIVISION" />
+      <TextField fx:id="IDTextField" disable="true" layoutX="167.0" layoutY="106.0" prefHeight="39.0" prefWidth="214.0" style="-fx-font-style: italic;" />
+      <TextField fx:id="NameTextField" layoutX="167.0" layoutY="157.0" prefHeight="39.0" prefWidth="214.0" />
+      <TextField fx:id="AddressTextField" layoutX="167.0" layoutY="206.0" prefHeight="39.0" prefWidth="214.0" />
+      <TextField fx:id="PostalCodeTextField" layoutX="167.0" layoutY="260.0" prefHeight="39.0" prefWidth="214.0" />
+      <TextField fx:id="PhoneTextField" layoutX="167.0" layoutY="313.0" prefHeight="39.0" prefWidth="214.0" />
+      <ComboBox fx:id="CountryCombo" layoutX="417.0" layoutY="138.0" prefWidth="150.0" />
+      <ComboBox fx:id="DivisionCombo" layoutX="417.0" layoutY="233.0" prefWidth="150.0" />
+      <Button fx:id="SaveButton" layoutX="412.0" layoutY="307.0" mnemonicParsing="false" onAction="#Save" text="SAVE" />
+      <Button fx:id="CancelButton" layoutX="501.0" layoutY="307.0" mnemonicParsing="false" onAction="#Cancel" text="CANCEL" />
+      <Button fx:id="HomeButton" layoutX="6.0" layoutY="1.0" mnemonicParsing="false" onAction="#Home" style="-fx-background-color: #ccc6ee;" text="SIMPLY">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

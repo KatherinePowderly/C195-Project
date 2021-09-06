@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="Records2Label" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ccc6ee;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutX="69.0" layoutY="72.0" prefHeight="124.0" prefWidth="443.0" style="-fx-background-color: white;">
+         <children>
+            <Label fx:id="Records1Label" layoutX="56.0" layoutY="14.0" text="Total Number of Customer Appointments" />
+            <RadioButton fx:id="TypeRadioButton" layoutX="119.0" layoutY="43.0" mnemonicParsing="false" selected="true" text="Type" />
+            <RadioButton fx:id="MonthRadioButton" layoutX="214.0" layoutY="43.0" mnemonicParsing="false" text="Month" />
+            <Button fx:id="GenerateButton1" layoutX="145.0" layoutY="79.0" mnemonicParsing="false" onAction="#Generate" prefHeight="27.0" prefWidth="124.0" text="GENERATE" />
+         </children>
+      </Pane>
+      <Pane layoutX="66.0" layoutY="206.0" prefHeight="144.0" prefWidth="224.0" style="-fx-background-color: white;">
+         <children>
+            <Label layoutX="44.0" layoutY="8.0" text="Schedule by User" />
+            <Button fx:id="GenerateButton2" layoutX="50.0" layoutY="91.0" mnemonicParsing="false" onAction="#Generate" prefHeight="27.0" prefWidth="124.0" text="GENERATE" />
+            <ComboBox fx:id="Records2Combo" layoutX="37.0" layoutY="42.0" prefWidth="150.0" />
+         </children>
+      </Pane>
+      <Pane layoutX="300.0" layoutY="206.0" prefHeight="144.0" prefWidth="216.0" style="-fx-background-color: white;">
+         <children>
+            <Label fx:id="Records3Label" layoutX="13.0" layoutY="7.0" text="Total Appt by Customer" />
+            <Button fx:id="GenerateButton" layoutX="46.0" layoutY="91.0" mnemonicParsing="false" onAction="#Generate" prefHeight="27.0" prefWidth="124.0" text="GENERATE" />
+            <ComboBox fx:id="Records3Combo" layoutX="33.0" layoutY="42.0" prefWidth="150.0" />
+         </children>
+      </Pane>
+      <Label fx:id="Header" alignment="CENTER" layoutX="144.0" layoutY="32.0" prefHeight="32.0" prefWidth="294.0" text="GENERATE REPORT" textAlignment="CENTER">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Button fx:id="HomeButton" layoutY="6.0" mnemonicParsing="false" onAction="#Home" style="-fx-background-color: #ccc6ee;" text="SIMPLY">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

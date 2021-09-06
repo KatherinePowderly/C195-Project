@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ccc6ee;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="AppointmentsTable" layoutX="13.0" layoutY="83.0" prefHeight="237.0" prefWidth="564.0">
+         <columns>
+            <TableColumn fx:id="AppointmentIDColumn" prefWidth="57.0" text="Appt. ID" />
+            <TableColumn fx:id="TitleColumn" prefWidth="38.0" text="Title" />
+            <TableColumn fx:id="DescriptionColumn" prefWidth="64.0" text="Desc." />
+            <TableColumn fx:id="LocationColumn" prefWidth="67.0" text="Location" />
+            <TableColumn fx:id="ContactColumn" prefWidth="97.0" text="Contact" />
+            <TableColumn fx:id="TypeColumn" prefWidth="53.0" text="Type" />
+            <TableColumn fx:id="StartDateTimeColumn" prefWidth="85.0" text="Start Date/Time" />
+            <TableColumn fx:id="EndDateTimeColumn" prefWidth="69.0" text="End Date/Time" />
+            <TableColumn fx:id="CustomerIDColumn" prefWidth="65.0" text="Cust. ID" />
+         </columns>
+      </TableView>
+      <Button fx:id="CreateAppointmentButton" layoutX="28.0" layoutY="333.0" mnemonicParsing="false" onAction="#CreateAppointment" text="CREATE APPT." />
+      <Button fx:id="UpdateCustomerButton" layoutX="225.0" layoutY="333.0" mnemonicParsing="false" onAction="#UpdateAppointment" text="UPDATE APPT." />
+      <Button fx:id="DeleteAppointmentButton" layoutX="431.0" layoutY="333.0" mnemonicParsing="false" onAction="#DeleteAppointment" text="DELETE APPT." />
+      <Label fx:id="Header" layoutX="239.0" layoutY="17.0" text="APPOINTMENTS" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="HomeButton" mnemonicParsing="false" onAction="#Home" style="-fx-background-color: #ccc6ee;" text="SIMPLY">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <RadioButton fx:id="WeekRadioButton" layoutX="370.0" layoutY="51.0" mnemonicParsing="false" selected="true" text="WEEK" />
+      <RadioButton fx:id="MonthRadioButton" layoutX="465.0" layoutY="51.0" mnemonicParsing="false" text="MONTH" />
+   </children>
+</AnchorPane>

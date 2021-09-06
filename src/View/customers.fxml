@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ccc6ee;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="CustomersTable" layoutX="13.0" layoutY="59.0" prefHeight="261.0" prefWidth="564.0">
+        <columns>
+          <TableColumn fx:id="CustomerIDColumn" prefWidth="48.0" text="ID" />
+          <TableColumn fx:id="NameColumn" prefWidth="65.0" text="Name" />
+            <TableColumn fx:id="AddressColumn" prefWidth="100.0" text="Address" />
+            <TableColumn fx:id="PostalCodeColumn" prefWidth="87.0" text="Postal Code" />
+            <TableColumn fx:id="PhoneColumn" prefWidth="93.0" text="Phone" />
+            <TableColumn fx:id="CountryColumn" text="Country" />
+            <TableColumn fx:id="DivisionColumn" prefWidth="110.0" text="Division" />
+        </columns>
+      </TableView>
+      <Button fx:id="CreateCustomerButton" layoutX="14.0" layoutY="333.0" mnemonicParsing="false" onAction="#CreateCustomer" text="CREATE CUSTOMER" />
+      <Button fx:id="UpdateCustomerButton" layoutX="205.0" layoutY="333.0" mnemonicParsing="false" onAction="#UpdateCustomer" text="UPDATE CUSTOMER" />
+      <Button fx:id="DeleteCustomerButton" layoutX="400.0" layoutY="333.0" mnemonicParsing="false" onAction="#DeleteCustomer" text="DELETE CUSTOMER" />
+      <Label fx:id="Header" layoutX="239.0" layoutY="17.0" text="CUSTOMERS" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="HomeButton" layoutX="6.0" layoutY="7.0" mnemonicParsing="false" onAction="#Home" style="-fx-background-color: #ccc6ee;" text="SIMPLY">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
