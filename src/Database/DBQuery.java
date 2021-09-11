@@ -1,9 +1,6 @@
 package Database;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class DBQuery {
 
@@ -15,7 +12,7 @@ public class DBQuery {
     }
 
     // Getter - Return statement object
-    public static PreparedStatement getPreparedStatement(){
+    public static PreparedStatement getPreparedStatement() {
         return statement;
     }
 }

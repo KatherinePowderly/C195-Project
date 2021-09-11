@@ -18,6 +18,10 @@ public class DBConnection {
     private static final String username = "U06qNV";
     private static Connection conn = null;
 
+    public static Connection getConnection(){
+        return conn;
+    }
+
     public static Connection startConnection() {
         try {
             Class.forName(MYSQLJDBCDriver);

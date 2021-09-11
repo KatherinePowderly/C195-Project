@@ -2,10 +2,13 @@ package Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.util.Optional;
 
 public class CreateCustomerController {
 
@@ -70,12 +73,40 @@ public class CreateCustomerController {
 
     @FXML
     void Cancel(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Navigate back to Customers?");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && (result.get() ==  ButtonType.OK)) {
+            try {
+                Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                Parent scene = FXMLLoader.load(getClass().getResource("/View/Customers.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setContentText("Load Screen Error.");
+                alert.showAndWait();
+            }
+        }
 
     }
 
     @FXML
     void Home(ActionEvent event) {
-
+        try {
+            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            Parent scene = FXMLLoader.load(getClass().getResource("/View/Home.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.setTitle("Home");
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setContentText("Load Screen Error.");
+            alert.showAndWait();
+        }
     }
-
 }
