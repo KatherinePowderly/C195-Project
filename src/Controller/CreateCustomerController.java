@@ -219,8 +219,14 @@ public class CreateCustomerController implements Initializable {
             ObservableList<String> countryList = FXCollections.observableArrayList();
 
             for (Customer customer : customers) {
-                divisionList.add(customer.getDivisionId());
-                countryList.add(customer.getCountry());
+                //prevent duplicates from being added to the division/country list
+                if (!divisionList.contains(customer.getDivisionId())) {
+                    divisionList.add(customer.getDivisionId());
+                }
+
+                if (!countryList.contains(customer.getCountry())) {
+                    countryList.add(customer.getCountry());
+                }
             }
             DivisionCombo.setItems(divisionList);
             CountryCombo.setItems(countryList);

@@ -84,17 +84,27 @@ public class CustomersController implements Initializable {
 
     @FXML
     void UpdateCustomer(ActionEvent event) {
-        try {
-            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            Parent scene = FXMLLoader.load(getClass().getResource("/View/UpdateCustomer.fxml"));
-            stage.setScene(new Scene(scene));
-            stage.setTitle("Update Existing Customer");
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        UpdateCustomerController.receiveSelectedCustomer(CustomersTable.getSelectionModel().getSelectedItem());
+
+        if (CustomersTable.getSelectionModel().getSelectedItem() != null) {
+            try {
+                Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                Parent scene = FXMLLoader.load(getClass().getResource("/View/UpdateCustomer.fxml"));
+                stage.setScene(new Scene(scene));
+                stage.setTitle("Update Existing Customer");
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Dialog");
+                alert.setContentText("Load Screen Error.");
+                alert.showAndWait();
+            }
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
-            alert.setContentText("Load Screen Error.");
+            alert.setContentText("You must select a customer to update.");
             alert.showAndWait();
         }
     }
@@ -134,7 +144,6 @@ public class CustomersController implements Initializable {
                 }
             }
         }
-
     }
 
     @FXML
@@ -183,7 +192,7 @@ public class CustomersController implements Initializable {
             AddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
             PostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
             PhoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-            DivisionColumn.setCellValueFactory(new PropertyValueFactory<>("division"));
+            DivisionColumn.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
             CountryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
         } catch (SQLException e) {
             e.printStackTrace();

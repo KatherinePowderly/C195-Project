@@ -72,6 +72,34 @@ public class CustomersQuery {
         }
     }
 
+    public static boolean updateCustomer(int customerId, String name, String address, String postalCode, String phone, int divisionId) throws SQLException {
+        String insertStatement = "UPDATE customers SET Customer_Name=?, Address=?, Postal_Code=?, Phone=?, Division_ID=? WHERE Customer_ID=?";
+
+        DBQuery.setPreparedStatement(DBConnection.getConnection(), insertStatement);
+        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+
+        preparedStatement.setString(1, name);
+        preparedStatement.setString(2, address);
+        preparedStatement.setString(3, postalCode);
+        preparedStatement.setString(4, phone);
+        preparedStatement.setInt(5, divisionId);
+        preparedStatement.setInt(6, customerId);
+
+        try {
+            preparedStatement.execute();
+            if (preparedStatement.getUpdateCount() > 0) {
+                System.out.println("Rows affected: " + preparedStatement.getUpdateCount());
+            } else {
+                System.out.println("No change");
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+    }
+
+
     public static boolean deleteCustomer(int customerId) throws SQLException {
         String insertStatement = "DELETE from customers WHERE Customer_Id=?";
 
