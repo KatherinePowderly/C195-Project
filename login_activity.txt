@@ -1,0 +1,5 @@
+Failed Login: Username=test Password=hello Timestamp: 12-09-2021 09:01:41
+Successful Login: Username=test Password=test Timestamp: 12-09-2021 09:01:51
+Failed Login: Username=test Password= Timestamp: 12-09-2021 09:02:03
+Failed Login: Username=test Password=? Timestamp: 12-09-2021 09:02:11
+Successful Logout: 12-09-2021 09:05:39

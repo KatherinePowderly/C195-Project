@@ -12,10 +12,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -63,9 +68,14 @@ public class LoginController implements Initializable {
         validateNotEmpty("Username", UsernameTextField.getText());
         validateNotEmpty("Password", PasswordTextField.getText());
 
+        createFile();
+
         try {
             boolean valid = UsersQuery.checkUsernamePassword(UsernameTextField.getText(), PasswordTextField.getText());
             if (valid) {
+
+                loginSuccess();
+
                 try {
                     Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                     Parent scene = FXMLLoader.load(getClass().getResource("/View/Home.fxml"));
@@ -80,6 +90,9 @@ public class LoginController implements Initializable {
                     alert.showAndWait();
                 }
             } else {
+
+                loginFailure();
+
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error Dialog");
                 alert.setContentText("Username and password is incorrect.");
@@ -90,12 +103,49 @@ public class LoginController implements Initializable {
         }
     }
 
+    private void createFile(){
+        try {
+            File newfile = new File("login_activity.txt");
+            if (newfile.createNewFile()) {
+                System.out.println("File created:" + newfile.getName());
+            } else {
+                System.out.println("File already exists. Location: "+ newfile.getPath());
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     private void validateNotEmpty(String label, String textField){
         if (textField.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setContentText(label + " is required");
             alert.showAndWait();
+        }
+    }
+
+    private void loginSuccess() {
+        try {
+            FileWriter fileWriter = new FileWriter("login_activity.txt", true);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            Date date = new Date(System.currentTimeMillis());
+            fileWriter.write("Successful Login: Username=" + UsernameTextField.getText() + " Password=" + PasswordTextField.getText() + " Timestamp: " + simpleDateFormat.format(date) + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loginFailure() {
+        try {
+            FileWriter fileWriter = new FileWriter("login_activity.txt", true);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            Date date = new Date(System.currentTimeMillis());
+            fileWriter.write("Failed Login: Username=" + UsernameTextField.getText() + " Password=" + PasswordTextField.getText() + " Timestamp: " + simpleDateFormat.format(date) + "\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
