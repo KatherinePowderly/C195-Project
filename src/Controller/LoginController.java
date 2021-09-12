@@ -12,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.net.CookieHandler;
+import java.net.CookieManager;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Locale;

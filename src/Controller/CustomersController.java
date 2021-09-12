@@ -2,6 +2,7 @@ package Controller;
 
 import Database.CustomersQuery;
 import Model.Customer;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,9 +16,15 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CustomersController implements Initializable {
+
+    static ObservableList<Customer> customers;
+
+    @FXML
+    private TextField SearchTextField;
 
     @FXML
     private TableColumn<?, ?> AddressColumn;
@@ -98,6 +105,36 @@ public class CustomersController implements Initializable {
     @FXML
     void DeleteCustomer(ActionEvent event) {
 
+        Customer selectedCustomer = CustomersTable.getSelectionModel().getSelectedItem();
+        if (selectedCustomer == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setContentText("You must select a customer to delete.");
+            alert.showAndWait();
+        } else if (CustomersTable.getSelectionModel().getSelectedItem() != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "This will delete the selected customer. Do you wish to continue?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && (result.get() == ButtonType.OK)) {
+                try {
+                    boolean deleteSuccessful = CustomersQuery.deleteCustomer(CustomersTable.getSelectionModel().getSelectedItem().getCustomerId());
+
+                    if (deleteSuccessful) {
+                        customers = CustomersQuery.getCustomers();
+                        CustomersTable.setItems(customers);
+                        CustomersTable.refresh();
+                    } else {
+                        alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error Dialog");
+                        alert.setContentText("Could not delete Customer.");
+                        alert.showAndWait();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 
     @FXML
@@ -119,13 +156,27 @@ public class CustomersController implements Initializable {
 
     @FXML
     void SearchCustomers(ActionEvent event) {
+        ObservableList<Customer> updateTable = lookupCustomer(SearchTextField.getText());
+        CustomersTable.setItems(updateTable);
+    }
 
+    private static ObservableList<Customer> lookupCustomer(String input) {
+        ObservableList<Customer> customerList = FXCollections.observableArrayList();
+
+        for (Customer customer: customers) {
+            if (customer.getCustomerName().contains(input)) {
+                customerList.add(customer);
+            } else if (Integer.toString(customer.getCustomerId()).contains(input)) {
+                customerList.add(customer);
+            }
+        }
+        return customerList;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            ObservableList<Customer> customers = CustomersQuery.getCustomers();
+            customers = CustomersQuery.getCustomers();
             CustomersTable.setItems(customers);
             CustomerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
             NameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
@@ -134,7 +185,6 @@ public class CustomersController implements Initializable {
             PhoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
             DivisionColumn.setCellValueFactory(new PropertyValueFactory<>("division"));
             CountryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
