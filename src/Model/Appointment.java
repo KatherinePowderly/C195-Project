@@ -1,8 +1,5 @@
 package Model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -19,29 +16,34 @@ public class Appointment {
     private LocalDateTime endTime;
     private int customerId;
     private int userId;
+    private int contactId;
 
     public Appointment(int appointmentId,
                     String title,
                     String description,
                     String location,
                     String type,
-//                    LocalDate startDate,
-//                    LocalDateTime startTime,
-//                    LocalDate endDate,
-//                    LocalDateTime endTime,
+                    LocalDate startDate,
+                    LocalDateTime startTime,
+                    LocalDate endDate,
+                    LocalDateTime endTime,
                     int customerId,
-                    int userId) {
+                    int userId,
+                    int contactId
+    ) {
         this.appointmentId = appointmentId;
         this.title = title;
         this.description = description;
         this.location = location;
         this.type = type;
-//        this.startDate = startDate;
-//        this.startTime = startTime;
-//        this.endDate = endDate;
-//        this.endTime = endTime;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.endDate = endDate;
+        this.endTime = endTime;
         this.customerId = customerId;
         this.userId = userId;
+        this.contactId = contactId;
+//        this.contactName = contactName;
     }
 
     public int getAppointmentId() {
@@ -131,4 +133,13 @@ public class Appointment {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
+    public int getContactId() {
+        return contactId;
+    }
+
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
+    }
+
 }

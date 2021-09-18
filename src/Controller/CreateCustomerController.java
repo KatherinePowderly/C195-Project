@@ -1,7 +1,13 @@
 package Controller;
 
+import Database.CountryQuery;
 import Database.CustomersQuery;
+import Database.DivisionQuery;
+import Database.UsersQuery;
+import Model.Country;
 import Model.Customer;
+import Model.Division;
+import Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -66,13 +72,34 @@ public class CreateCustomerController implements Initializable {
     private Label CountryLabel;
 
     @FXML
-    private ComboBox<Integer> DivisionCombo;
+    private ComboBox<String> DivisionCombo;
 
     @FXML
     private TextField PhoneTextField;
 
     @FXML
     private TextField IDTextField;
+
+    @FXML
+    void SelectCountry(ActionEvent event) {
+        ObservableList<String> divisionList = FXCollections.observableArrayList();
+        try {
+            ObservableList<Division> divisions = DivisionQuery.getDivisionsByCountry(CountryCombo.getSelectionModel().getSelectedItem());
+            if (divisions != null) {
+                for (Division division: divisions) {
+                    divisionList.add(division.getDivision());
+                }
+            }
+            DivisionCombo.setItems(divisionList);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void SelectDivision(ActionEvent event) {
+
+    }
 
     @FXML
     void Save(ActionEvent event) throws SQLException {
@@ -211,27 +238,43 @@ public class CreateCustomerController implements Initializable {
         }
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    private void setDivisionCombo(){
+        ObservableList<String> divisionList = FXCollections.observableArrayList();
+
         try {
-            ObservableList<Customer> customers = CustomersQuery.getCustomers();
-            ObservableList<Integer> divisionList = FXCollections.observableArrayList();
-            ObservableList<String> countryList = FXCollections.observableArrayList();
-
-            for (Customer customer : customers) {
-                //prevent duplicates from being added to the division/country list
-                if (!divisionList.contains(customer.getDivisionId())) {
-                    divisionList.add(customer.getDivisionId());
-                }
-
-                if (!countryList.contains(customer.getCountry())) {
-                    countryList.add(customer.getCountry());
+            ObservableList<Division> divisions = DivisionQuery.getDivisions();;
+            if (divisions != null) {
+                for (Division division: divisions) {
+                    divisionList.add(division.getDivision());
                 }
             }
-            DivisionCombo.setItems(divisionList);
-            CountryCombo.setItems(countryList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        DivisionCombo.setItems(divisionList);
+    }
+
+    private void setCountryCombo(){
+        ObservableList<String> countryList = FXCollections.observableArrayList();
+
+        try {
+            ObservableList<Country> countries = CountryQuery.getCountries();;
+            if (countries != null) {
+                for (Country country: countries) {
+                    countryList.add(country.getCountry());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        CountryCombo.setItems(countryList);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setDivisionCombo();
+        setCountryCombo();
     }
 }

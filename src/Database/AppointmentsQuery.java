@@ -1,24 +1,24 @@
 package Database;
 
 import Model.Appointment;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class AppointmentsQuery {
 
     public static ObservableList<Appointment> getAppointments() throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
-        String searchStatement = "SELECT * FROM appointments";
+        String queryStatement = "SELECT * FROM appointments;";
 
-        DBQuery.setPreparedStatement(DBConnection.getConnection(), searchStatement);
+        DBQuery.setPreparedStatement(DBConnection.getConnection(), queryStatement);
         PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
 
         try {
@@ -33,12 +33,13 @@ public class AppointmentsQuery {
                         resultSet.getString("Description"),
                         resultSet.getString("Location"),
                         resultSet.getString("Type"),
-//                        resultSet.getDate("startDate").toLocalDate(),
-//                        resultSet.getTimestamp("startTime").toLocalDateTime(),
-//                        resultSet.getDate("endDate").toLocalDate(),
-//                        resultSet.getTimestamp("endTime").toLocalDateTime(),
+                        resultSet.getDate("Start").toLocalDate(),
+                        resultSet.getTimestamp("Start").toLocalDateTime(),
+                        resultSet.getDate("End").toLocalDate(),
+                        resultSet.getTimestamp("End").toLocalDateTime(),
                         resultSet.getInt("Customer_ID"),
-                        resultSet.getInt("User_ID")
+                        resultSet.getInt("User_ID"),
+                        resultSet.getInt("Contact_ID")
                 );
 
                 appointments.add(newAppointment);
@@ -49,4 +50,214 @@ public class AppointmentsQuery {
             return null;
         }
     }
+
+    public static ObservableList<Appointment> getAppointmentsMonth() throws SQLException {
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+
+        LocalDateTime todaysDate = LocalDateTime.now();
+        LocalDateTime lastMonth = todaysDate.minusDays(30);
+
+        String queryStatement = "SELECT * FROM appointments WHERE Start > ?;";
+
+        DBQuery.setPreparedStatement(DBConnection.getConnection(), queryStatement);
+        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+
+        preparedStatement.setDate(1, java.sql.Date.valueOf(lastMonth.toLocalDate()));
+
+        try {
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+
+            // Forward scroll resultSet
+            while (resultSet.next()) {
+                Appointment newAppointment = new Appointment(
+                        resultSet.getInt("Appointment_ID"),
+                        resultSet.getString("Title"),
+                        resultSet.getString("Description"),
+                        resultSet.getString("Location"),
+                        resultSet.getString("Type"),
+                        resultSet.getDate("Start").toLocalDate(),
+                        resultSet.getTimestamp("Start").toLocalDateTime(),
+                        resultSet.getDate("End").toLocalDate(),
+                        resultSet.getTimestamp("End").toLocalDateTime(),
+                        resultSet.getInt("Customer_ID"),
+                        resultSet.getInt("User_ID"),
+                        resultSet.getInt("Contact_ID")
+                );
+
+                appointments.add(newAppointment);
+            }
+            return appointments;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public static ObservableList<Appointment> getAppointmentsWeek() throws SQLException {
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+
+        LocalDateTime todaysDate = LocalDateTime.now();
+        LocalDateTime lastWeek = todaysDate.minusDays(7);
+
+        String queryStatement = "SELECT * FROM appointments WHERE Start > ?;";
+
+        DBQuery.setPreparedStatement(DBConnection.getConnection(), queryStatement);
+        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+
+        preparedStatement.setDate(1, java.sql.Date.valueOf(lastWeek.toLocalDate()));
+
+        try {
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+
+            // Forward scroll resultSet
+            while (resultSet.next()) {
+                Appointment newAppointment = new Appointment(
+                        resultSet.getInt("Appointment_ID"),
+                        resultSet.getString("Title"),
+                        resultSet.getString("Description"),
+                        resultSet.getString("Location"),
+                        resultSet.getString("Type"),
+                        resultSet.getDate("Start").toLocalDate(),
+                        resultSet.getTimestamp("Start").toLocalDateTime(),
+                        resultSet.getDate("End").toLocalDate(),
+                        resultSet.getTimestamp("End").toLocalDateTime(),
+                        resultSet.getInt("Customer_ID"),
+                        resultSet.getInt("User_ID"),
+                        resultSet.getInt("Contact_ID")
+                );
+
+                appointments.add(newAppointment);
+            }
+            return appointments;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public static boolean createAppointment(Integer contactID, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, Integer customerId, Integer userID) throws SQLException {
+        String insertStatement = "INSERT INTO appointments(Title, Description, Location, Type, Start, End, Customer_ID, Contact_ID, User_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        DBQuery.setPreparedStatement(DBConnection.getConnection(), insertStatement);
+        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+
+        preparedStatement.setString(1, title);
+        preparedStatement.setString(2, description);
+        preparedStatement.setString(3, location);
+        preparedStatement.setString(4, type);
+        preparedStatement.setTimestamp(5, Timestamp.valueOf(start));
+        preparedStatement.setTimestamp(6, Timestamp.valueOf(end));
+        preparedStatement.setInt(7, customerId);
+        preparedStatement.setInt(8, contactID);
+        preparedStatement.setInt(9, userID);
+
+        try {
+            preparedStatement.execute();
+            if (preparedStatement.getUpdateCount() > 0) {
+                System.out.println("Rows affected: " + preparedStatement.getUpdateCount());
+            } else {
+                System.out.println("No change");
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean deleteAppointment(int appointmentId) throws SQLException {
+        String insertStatement = "DELETE from appointments WHERE Appointment_Id=?";
+
+        DBQuery.setPreparedStatement(DBConnection.getConnection(), insertStatement);
+        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+
+        preparedStatement.setInt(1, appointmentId);
+
+        try {
+            preparedStatement.execute();
+            if (preparedStatement.getUpdateCount() > 0) {
+                System.out.println("Rows affected: " + preparedStatement.getUpdateCount());
+            } else {
+                System.out.println("No change");
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean updateAppointment(Integer contactID, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, Integer customerId, Integer userID, Integer appointmentID) throws SQLException {
+        String updateStatement = "UPDATE appointments SET Title=?, Description=?, Location=?, Type=?, Start=?, End=?, Customer_ID=?, Contact_ID=?, User_ID=? WHERE Appointment_ID = ?;";
+
+        DBQuery.setPreparedStatement(DBConnection.getConnection(), updateStatement);
+        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+
+        preparedStatement.setString(1, title);
+        preparedStatement.setString(2, description);
+        preparedStatement.setString(3, location);
+        preparedStatement.setString(4, type);
+        preparedStatement.setTimestamp(5, Timestamp.valueOf(start));
+        preparedStatement.setTimestamp(6, Timestamp.valueOf(end));
+        preparedStatement.setInt(7, customerId);
+        preparedStatement.setInt(8, contactID);
+        preparedStatement.setInt(9, userID);
+        preparedStatement.setInt(10, appointmentID);
+
+        try {
+            preparedStatement.execute();
+            if (preparedStatement.getUpdateCount() > 0) {
+                System.out.println("Rows affected: " + preparedStatement.getUpdateCount());
+            } else {
+                System.out.println("No change");
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static ObservableList<Appointment> getAppointmentsByCustomerID(int CustomerID) throws SQLException {
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+
+        String queryStatement = "SELECT * FROM appointments WHERE Customer_ID=?;";
+
+        DBQuery.setPreparedStatement(DBConnection.getConnection(), queryStatement);
+        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+
+        preparedStatement.setInt(1, CustomerID);
+
+        try {
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+
+            // Forward scroll resultSet
+            while (resultSet.next()) {
+                Appointment newAppointment = new Appointment(
+                        resultSet.getInt("Appointment_ID"),
+                        resultSet.getString("Title"),
+                        resultSet.getString("Description"),
+                        resultSet.getString("Location"),
+                        resultSet.getString("Type"),
+                        resultSet.getDate("Start").toLocalDate(),
+                        resultSet.getTimestamp("Start").toLocalDateTime(),
+                        resultSet.getDate("End").toLocalDate(),
+                        resultSet.getTimestamp("End").toLocalDateTime(),
+                        resultSet.getInt("Customer_ID"),
+                        resultSet.getInt("User_ID"),
+                        resultSet.getInt("Contact_ID")
+                );
+
+                appointments.add(newAppointment);
+            }
+            return appointments;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
 }

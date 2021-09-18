@@ -3,3 +3,4 @@ Successful Login: Username=test Password=test Timestamp: 12-09-2021 09:01:51
 Failed Login: Username=test Password= Timestamp: 12-09-2021 09:02:03
 Failed Login: Username=test Password=? Timestamp: 12-09-2021 09:02:11
 Successful Logout: 12-09-2021 09:05:39
+Successful Logout: 18-09-2021 07:19:49

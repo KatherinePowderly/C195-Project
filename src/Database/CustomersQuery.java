@@ -1,6 +1,7 @@
 package Database;
 
 import Model.Customer;
+import Model.Division;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -46,7 +47,10 @@ public class CustomersQuery {
         }
     }
 
-    public static boolean createCustomer(String name, String address, String postalCode, String phone, int divisionId) throws SQLException {
+    public static boolean createCustomer(String name, String address, String postalCode, String phone, String division) throws SQLException {
+
+        Division newDivision = DivisionQuery.getDivisionId(division);
+
         String insertStatement = "INSERT INTO customers(Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (?, ?, ?, ?, ?)";
 
         DBQuery.setPreparedStatement(DBConnection.getConnection(), insertStatement);
@@ -56,7 +60,7 @@ public class CustomersQuery {
         preparedStatement.setString(2, address);
         preparedStatement.setString(3, postalCode);
         preparedStatement.setString(4, phone);
-        preparedStatement.setInt(5, divisionId);
+        preparedStatement.setInt(5, newDivision.getDivisionId());
 
         try {
             preparedStatement.execute();
@@ -72,7 +76,9 @@ public class CustomersQuery {
         }
     }
 
-    public static boolean updateCustomer(int customerId, String name, String address, String postalCode, String phone, int divisionId) throws SQLException {
+    public static boolean updateCustomer(int customerId, String name, String address, String postalCode, String phone, String division) throws SQLException {
+        Division newDivision = DivisionQuery.getDivisionId(division);
+
         String insertStatement = "UPDATE customers SET Customer_Name=?, Address=?, Postal_Code=?, Phone=?, Division_ID=? WHERE Customer_ID=?";
 
         DBQuery.setPreparedStatement(DBConnection.getConnection(), insertStatement);
@@ -82,7 +88,7 @@ public class CustomersQuery {
         preparedStatement.setString(2, address);
         preparedStatement.setString(3, postalCode);
         preparedStatement.setString(4, phone);
-        preparedStatement.setInt(5, divisionId);
+        preparedStatement.setInt(5, newDivision.getDivisionId());
         preparedStatement.setInt(6, customerId);
 
         try {

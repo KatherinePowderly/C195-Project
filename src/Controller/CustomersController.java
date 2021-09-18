@@ -1,6 +1,8 @@
 package Controller;
 
+import Database.AppointmentsQuery;
 import Database.CustomersQuery;
+import Model.Appointment;
 import Model.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -112,6 +114,21 @@ public class CustomersController implements Initializable {
     @FXML
     private Button SearchButton;
 
+    private boolean checkAppointments(Customer selectedCustomer) {
+        try {
+            ObservableList appointments = AppointmentsQuery.getAppointmentsByCustomerID(selectedCustomer.getCustomerId());
+            if (appointments != null && appointments.size() < 1) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     @FXML
     void DeleteCustomer(ActionEvent event) {
 
@@ -127,16 +144,25 @@ public class CustomersController implements Initializable {
 
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
                 try {
-                    boolean deleteSuccessful = CustomersQuery.deleteCustomer(CustomersTable.getSelectionModel().getSelectedItem().getCustomerId());
 
-                    if (deleteSuccessful) {
-                        customers = CustomersQuery.getCustomers();
-                        CustomersTable.setItems(customers);
-                        CustomersTable.refresh();
+                    boolean valid = checkAppointments(selectedCustomer);
+                    if (valid) {
+                        boolean deleteSuccessful = CustomersQuery.deleteCustomer(CustomersTable.getSelectionModel().getSelectedItem().getCustomerId());
+
+                        if (deleteSuccessful) {
+                            customers = CustomersQuery.getCustomers();
+                            CustomersTable.setItems(customers);
+                            CustomersTable.refresh();
+                        } else {
+                            alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Error Dialog");
+                            alert.setContentText("Could not delete Customer.");
+                            alert.showAndWait();
+                        }
                     } else {
                         alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error Dialog");
-                        alert.setContentText("Could not delete Customer.");
+                        alert.setContentText("Cannot delete customer with existing appointments.");
                         alert.showAndWait();
                     }
                 } catch (SQLException e) {
@@ -192,7 +218,7 @@ public class CustomersController implements Initializable {
             AddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
             PostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
             PhoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-            DivisionColumn.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
+            DivisionColumn.setCellValueFactory(new PropertyValueFactory<>("division"));
             CountryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
         } catch (SQLException e) {
             e.printStackTrace();

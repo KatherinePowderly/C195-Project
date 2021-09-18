@@ -166,6 +166,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         ResourceBundle resourceBundle = ResourceBundle.getBundle("Language/language", Locale.getDefault());
         if (Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")){
             Header.setText(resourceBundle.getString("header"));

@@ -1,7 +1,11 @@
 package Controller;
 
+import Database.CountryQuery;
 import Database.CustomersQuery;
+import Database.DivisionQuery;
+import Model.Country;
 import Model.Customer;
+import Model.Division;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -68,7 +72,7 @@ public class UpdateCustomerController implements Initializable {
     private Label CountryLabel;
 
     @FXML
-    private ComboBox<Integer> DivisionCombo;
+    private ComboBox<String> DivisionCombo;
 
     @FXML
     private TextField PhoneTextField;
@@ -218,29 +222,46 @@ public class UpdateCustomerController implements Initializable {
         }
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        // Populate dropdown for division and country
+    private void setDivisionCombo(){
+        ObservableList<String> divisionList = FXCollections.observableArrayList();
+
         try {
-            ObservableList<Customer> customers = CustomersQuery.getCustomers();
-            ObservableList<Integer> divisionList = FXCollections.observableArrayList();
-            ObservableList<String> countryList = FXCollections.observableArrayList();
-
-            for (Customer customer : customers) {
-                //prevent duplicates from being added to the division/country list
-                if (!divisionList.contains(customer.getDivisionId())) {
-                    divisionList.add(customer.getDivisionId());
-                }
-
-                if (!countryList.contains(customer.getCountry())) {
-                    countryList.add(customer.getCountry());
+            ObservableList<Division> divisions = DivisionQuery.getDivisions();;
+            if (divisions != null) {
+                for (Division division: divisions) {
+                    divisionList.add(division.getDivision());
                 }
             }
-            DivisionCombo.setItems(divisionList);
-            CountryCombo.setItems(countryList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        DivisionCombo.setItems(divisionList);
+    }
+
+    private void setCountryCombo(){
+        ObservableList<String> countryList = FXCollections.observableArrayList();
+
+        try {
+            ObservableList<Country> countries = CountryQuery.getCountries();;
+            if (countries != null) {
+                for (Country country: countries) {
+                    countryList.add(country.getCountry());
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        CountryCombo.setItems(countryList);
+    }
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Populate dropdown for division and country
+        setDivisionCombo();
+        setCountryCombo();
 
         // Populate text fields with existing data
         IDTextField.setText(Integer.toString(selectedCustomer.getCustomerId()));
