@@ -1,7 +1,10 @@
 package Controller;
 
+import Database.AppointmentsQuery;
 import Database.UsersQuery;
+import Model.Appointment;
 import Model.User;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,11 +18,10 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.CookieHandler;
-import java.net.CookieManager;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Optional;
@@ -125,7 +127,57 @@ public class LoginController implements Initializable {
         }
     }
 
+    private void alertAppointment(){
+        LocalDateTime localDateTime = LocalDateTime.now();
+        LocalDateTime localDateTimePlus15 = localDateTime.plusMinutes(15);
+
+        ObservableList<Appointment> upcomingAppointments = FXCollections.observableArrayList();
+
+
+        try {
+            ObservableList<Appointment> appointments = AppointmentsQuery.getAppointments();
+
+            if (appointments != null) {
+                for (Appointment appointment: appointments) {
+                    if (appointment.getStartTime().isAfter(localDateTime) && appointment.getStartTime().isBefore(localDateTimePlus15)) {
+                        upcomingAppointments.add(appointment);
+
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Appointment Alert");
+                        alert.setContentText("Appointment starts in less than 15 minutes - Appointment ID: "
+                                + appointment.getAppointmentId() +
+                                " Date: " +
+                                appointment.getStartDate() +
+                                " Time: " + appointment.getStartTime().toLocalTime());
+                        alert.setResizable(true);
+                        alert.showAndWait();
+                    }
+                }
+
+                if (upcomingAppointments.size() < 1) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Appointment Alert");
+                    alert.setContentText("No upcoming appointments within the next 15 minutes");
+                    alert.setResizable(true);
+                    alert.showAndWait();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Appointment Alert");
+                alert.setContentText("No upcoming appointments within the next 15 minutes");
+                alert.setResizable(true);
+                alert.showAndWait();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void loginSuccess() {
+
+        alertAppointment();
+
         try {
             FileWriter fileWriter = new FileWriter("login_activity.txt", true);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");

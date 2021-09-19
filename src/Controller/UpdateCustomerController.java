@@ -81,6 +81,22 @@ public class UpdateCustomerController implements Initializable {
     private TextField IDTextField;
 
     @FXML
+    void SelectCountry(ActionEvent event) {
+        ObservableList<String> divisionList = FXCollections.observableArrayList();
+        try {
+            ObservableList<Division> divisions = DivisionQuery.getDivisionsByCountry(CountryCombo.getSelectionModel().getSelectedItem());
+            if (divisions != null) {
+                for (Division division: divisions) {
+                    divisionList.add(division.getDivision());
+                }
+            }
+            DivisionCombo.setItems(divisionList);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void Save(ActionEvent event) {
         boolean valid = validateNotEmpty(
                 NameTextField.getText(),

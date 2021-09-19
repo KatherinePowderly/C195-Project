@@ -81,8 +81,8 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <ComboBox fx:id="EndTimeCombo" layoutX="416.0" layoutY="286.0" prefHeight="39.0" prefWidth="170.0" />
-      <ComboBox fx:id="StartTimeCombo" layoutX="416.0" layoutY="177.0" prefHeight="39.0" prefWidth="170.0" />
+      <ComboBox fx:id="EndTimeCombo" layoutX="416.0" layoutY="286.0" onAction="#SelectEndTime" prefHeight="39.0" prefWidth="170.0" />
+      <ComboBox fx:id="StartTimeCombo" layoutX="416.0" layoutY="177.0" onAction="#SelectStartTime" prefHeight="39.0" prefWidth="170.0" />
       <ComboBox fx:id="ContactCombo" layoutX="109.0" layoutY="71.0" prefHeight="39.0" prefWidth="170.0" />
       <ComboBox fx:id="CustomerIDCombo" layoutX="416.0" layoutY="339.0" prefHeight="39.0" prefWidth="170.0" />
       <DatePicker fx:id="StartDateDatePicker" layoutX="416.0" layoutY="123.0" onAction="#PickStartDate" prefHeight="32.0" prefWidth="170.0" />

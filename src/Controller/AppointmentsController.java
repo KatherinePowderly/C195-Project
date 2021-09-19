@@ -93,6 +93,9 @@ public class AppointmentsController implements Initializable {
     private TableColumn<?, ?> CustomerIDColumn;
 
     @FXML
+    private TableColumn<?, ?> UserIDColumn;
+
+    @FXML
     private ToggleGroup ToggleView;
 
 
@@ -186,6 +189,11 @@ public class AppointmentsController implements Initializable {
                     boolean deleteSuccessful = AppointmentsQuery.deleteAppointment(AppointmentsTable.getSelectionModel().getSelectedItem().getAppointmentId());
 
                     if (deleteSuccessful) {
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Successful Delete");
+                        alert.setContentText("Successfully deleted Appointment ID: " + selectedAppointment.getAppointmentId() + " Type: " + selectedAppointment.getType());
+                        alert.showAndWait();
+
                         appointments = AppointmentsQuery.getAppointments();
                         AppointmentsTable.setItems(appointments);
                         AppointmentsTable.refresh();
@@ -252,11 +260,12 @@ public class AppointmentsController implements Initializable {
             TitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
             DescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
             LocationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-            ContactColumn.setCellValueFactory(new PropertyValueFactory<>("contactId"));
+            ContactColumn.setCellValueFactory(new PropertyValueFactory<>("contactName"));
             TypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
             StartDateTimeColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
             EndDateTimeColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
             CustomerIDColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+            UserIDColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
         } catch (SQLException e) {
             e.printStackTrace();

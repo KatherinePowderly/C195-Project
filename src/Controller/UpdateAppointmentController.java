@@ -46,7 +46,7 @@ public class UpdateAppointmentController implements Initializable {
     private TextField DescriptionTextField;
 
     @FXML
-    private ComboBox<Integer> ContactCombo;
+    private ComboBox<String> ContactCombo;
 
     @FXML
     private Button CancelButton;
@@ -147,7 +147,7 @@ public class UpdateAppointmentController implements Initializable {
                         LocationTextField.getText(),
                         TypeTextField.getText(),
                         LocalDateTime.of(StartDateDatePicker.getValue(), LocalTime.parse(StartTimeCombo.getSelectionModel().getSelectedItem())),
-                        LocalDateTime.of(EndDateDatePicker.getValue(), LocalTime.parse(StartTimeCombo.getSelectionModel().getSelectedItem())),
+                        LocalDateTime.of(EndDateDatePicker.getValue(), LocalTime.parse(EndTimeCombo.getSelectionModel().getSelectedItem())),
                         CustomerIDCombo.getSelectionModel().getSelectedItem(),
                         UserIDCombo.getSelectionModel().getSelectedItem(),
                         Integer.parseInt(AppointmentIDTextField.getText()));
@@ -334,19 +334,29 @@ public class UpdateAppointmentController implements Initializable {
 
     private void populateTimeComboBoxes() {
         ObservableList<String> time = FXCollections.observableArrayList();
-        time.addAll("08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00");
+        LocalTime startTime = LocalTime.of(8, 0);
+        LocalTime endTime = LocalTime.of(22, 0);
+
+        time.add(startTime.toString());
+        while (startTime.isBefore(endTime)) {
+            startTime = startTime.plusMinutes(15);
+            time.add(startTime.toString());
+        }
+
         StartTimeCombo.setItems(time);
         EndTimeCombo.setItems(time);
     }
 
     private void populateContactComboBox() {
-        ObservableList<Integer> contactComboList = FXCollections.observableArrayList();
+        ObservableList<String> contactComboList = FXCollections.observableArrayList();
 
         try {
             ObservableList<Contact> contacts = ContactsQuery.getContacts();
             if (contacts != null){
                 for (Contact contact: contacts) {
-                    contactComboList.add(contact.getContactId());
+                    if (!contactComboList.contains(contact.getContactName())) {
+                        contactComboList.add(contact.getContactName());
+                    }
                 }
             }
         } catch (SQLException e) {
@@ -355,6 +365,7 @@ public class UpdateAppointmentController implements Initializable {
 
         ContactCombo.setItems(contactComboList);
     }
+
 
     private void populateCustomerIDComboBox() {
         ObservableList<Integer> customerIDComboList = FXCollections.observableArrayList();
@@ -397,17 +408,24 @@ public class UpdateAppointmentController implements Initializable {
         populateCustomerIDComboBox();
         populateUserIDComboBox();
 
-        ContactCombo.getSelectionModel().select(selectedAppointment.getContactId());
-        TitleTextField.setText(selectedAppointment.getTitle());
-        DescriptionTextField.setText(selectedAppointment.getDescription());
-        LocationTextField.setText(selectedAppointment.getLocation());
-        TypeTextField.setText(selectedAppointment.getType());
-        UserIDCombo.getSelectionModel().select(selectedAppointment.getUserId());
-        AppointmentIDTextField.setText(String.valueOf(selectedAppointment.getAppointmentId()));
-        StartDateDatePicker.setValue(selectedAppointment.getStartDate());
-        StartTimeCombo.getSelectionModel().select(String.valueOf(selectedAppointment.getStartTime().toLocalTime()));
-        EndDateDatePicker.setValue(selectedAppointment.getEndDate());
-        EndTimeCombo.getSelectionModel().select(String.valueOf(selectedAppointment.getEndTime().toLocalTime()));
-        CustomerIDCombo.getSelectionModel().select(selectedAppointment.getCustomerId());
+        try {
+            Appointment appointment = AppointmentsQuery.getAppointmentByAppointmentID(selectedAppointment.getAppointmentId());
+
+            ContactCombo.getSelectionModel().select(appointment.getContactName());
+            TitleTextField.setText(appointment.getTitle());
+            DescriptionTextField.setText(appointment.getDescription());
+            LocationTextField.setText(appointment.getLocation());
+            TypeTextField.setText(appointment.getType());
+            UserIDCombo.getSelectionModel().select(Integer.valueOf(appointment.getUserId()));
+            AppointmentIDTextField.setText(String.valueOf(appointment.getAppointmentId()));
+            StartDateDatePicker.setValue(appointment.getStartDate());
+            StartTimeCombo.getSelectionModel().select(String.valueOf(appointment.getStartTime().toLocalTime()));
+            EndDateDatePicker.setValue(appointment.getEndDate());
+            EndTimeCombo.getSelectionModel().select(String.valueOf(appointment.getEndTime().toLocalTime()));
+            CustomerIDCombo.getSelectionModel().select(Integer.valueOf(appointment.getCustomerId()));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

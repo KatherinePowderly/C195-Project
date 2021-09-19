@@ -22,8 +22,12 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 public class CreateAppointmentController implements Initializable {
 
@@ -43,7 +47,7 @@ public class CreateAppointmentController implements Initializable {
     private TextField DescriptionTextField;
 
     @FXML
-    private ComboBox<Integer> ContactCombo;
+    private ComboBox<String> ContactCombo;
 
     @FXML
     private Button CancelButton;
@@ -289,6 +293,16 @@ public class CreateAppointmentController implements Initializable {
     }
 
     @FXML
+    void SelectStartTime(ActionEvent event) {
+    }
+
+
+    @FXML
+    void SelectEndTime(ActionEvent event) {
+
+    }
+
+    @FXML
     void Cancel(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Navigate back to Appointments?");
         Optional<ButtonType> result = alert.showAndWait();
@@ -328,18 +342,29 @@ public class CreateAppointmentController implements Initializable {
 
     private void populateTimeComboBoxes() {
         ObservableList<String> time = FXCollections.observableArrayList();
-        time.addAll("08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00");        StartTimeCombo.setItems(time);
+        LocalTime startTime = LocalTime.of(8, 0);
+        LocalTime endTime = LocalTime.of(22, 0);
+
+        time.add(startTime.toString());
+        while (startTime.isBefore(endTime)) {
+            startTime = startTime.plusMinutes(15);
+            time.add(startTime.toString());
+        }
+
+        StartTimeCombo.setItems(time);
         EndTimeCombo.setItems(time);
     }
 
     private void populateContactComboBox() {
-        ObservableList<Integer> contactComboList = FXCollections.observableArrayList();
+        ObservableList<String> contactComboList = FXCollections.observableArrayList();
 
         try {
             ObservableList<Contact> contacts = ContactsQuery.getContacts();
             if (contacts != null){
                 for (Contact contact: contacts) {
-                    contactComboList.add(contact.getContactId());
+                    if (!contactComboList.contains(contact.getContactName())) {
+                        contactComboList.add(contact.getContactName());
+                    }
                 }
             }
         } catch (SQLException e) {

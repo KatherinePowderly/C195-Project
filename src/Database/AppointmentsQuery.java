@@ -1,14 +1,12 @@
 package Database;
 
 import Model.Appointment;
+import Model.Contact;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.time.LocalDateTime;
 
 public class AppointmentsQuery {
@@ -16,7 +14,7 @@ public class AppointmentsQuery {
     public static ObservableList<Appointment> getAppointments() throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
-        String queryStatement = "SELECT * FROM appointments;";
+        String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID;";
 
         DBQuery.setPreparedStatement(DBConnection.getConnection(), queryStatement);
         PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
@@ -39,7 +37,8 @@ public class AppointmentsQuery {
                         resultSet.getTimestamp("End").toLocalDateTime(),
                         resultSet.getInt("Customer_ID"),
                         resultSet.getInt("User_ID"),
-                        resultSet.getInt("Contact_ID")
+                        resultSet.getInt("Contact_ID"),
+                        resultSet.getString("Contact_Name")
                 );
 
                 appointments.add(newAppointment);
@@ -57,7 +56,7 @@ public class AppointmentsQuery {
         LocalDateTime todaysDate = LocalDateTime.now();
         LocalDateTime lastMonth = todaysDate.minusDays(30);
 
-        String queryStatement = "SELECT * FROM appointments WHERE Start > ?;";
+        String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Start > ?;";
 
         DBQuery.setPreparedStatement(DBConnection.getConnection(), queryStatement);
         PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
@@ -82,7 +81,8 @@ public class AppointmentsQuery {
                         resultSet.getTimestamp("End").toLocalDateTime(),
                         resultSet.getInt("Customer_ID"),
                         resultSet.getInt("User_ID"),
-                        resultSet.getInt("Contact_ID")
+                        resultSet.getInt("Contact_ID"),
+                        resultSet.getString("Contact_Name")
                 );
 
                 appointments.add(newAppointment);
@@ -100,7 +100,7 @@ public class AppointmentsQuery {
         LocalDateTime todaysDate = LocalDateTime.now();
         LocalDateTime lastWeek = todaysDate.minusDays(7);
 
-        String queryStatement = "SELECT * FROM appointments WHERE Start > ?;";
+        String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Start > ?;";
 
         DBQuery.setPreparedStatement(DBConnection.getConnection(), queryStatement);
         PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
@@ -125,7 +125,8 @@ public class AppointmentsQuery {
                         resultSet.getTimestamp("End").toLocalDateTime(),
                         resultSet.getInt("Customer_ID"),
                         resultSet.getInt("User_ID"),
-                        resultSet.getInt("Contact_ID")
+                        resultSet.getInt("Contact_ID"),
+                        resultSet.getString("Contact_Name")
                 );
 
                 appointments.add(newAppointment);
@@ -137,7 +138,10 @@ public class AppointmentsQuery {
         }
     }
 
-    public static boolean createAppointment(Integer contactID, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, Integer customerId, Integer userID) throws SQLException {
+    public static boolean createAppointment(String contactName, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, Integer customerId, Integer userID) throws SQLException {
+
+        Contact contact = ContactsQuery.getContactId(contactName);
+
         String insertStatement = "INSERT INTO appointments(Title, Description, Location, Type, Start, End, Customer_ID, Contact_ID, User_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         DBQuery.setPreparedStatement(DBConnection.getConnection(), insertStatement);
@@ -150,7 +154,7 @@ public class AppointmentsQuery {
         preparedStatement.setTimestamp(5, Timestamp.valueOf(start));
         preparedStatement.setTimestamp(6, Timestamp.valueOf(end));
         preparedStatement.setInt(7, customerId);
-        preparedStatement.setInt(8, contactID);
+        preparedStatement.setInt(8, contact.getContactId());
         preparedStatement.setInt(9, userID);
 
         try {
@@ -189,7 +193,9 @@ public class AppointmentsQuery {
         }
     }
 
-    public static boolean updateAppointment(Integer contactID, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, Integer customerId, Integer userID, Integer appointmentID) throws SQLException {
+    public static boolean updateAppointment(String contactName, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, Integer customerId, Integer userID, Integer appointmentID) throws SQLException {
+        Contact contact = ContactsQuery.getContactId(contactName);
+
         String updateStatement = "UPDATE appointments SET Title=?, Description=?, Location=?, Type=?, Start=?, End=?, Customer_ID=?, Contact_ID=?, User_ID=? WHERE Appointment_ID = ?;";
 
         DBQuery.setPreparedStatement(DBConnection.getConnection(), updateStatement);
@@ -202,7 +208,7 @@ public class AppointmentsQuery {
         preparedStatement.setTimestamp(5, Timestamp.valueOf(start));
         preparedStatement.setTimestamp(6, Timestamp.valueOf(end));
         preparedStatement.setInt(7, customerId);
-        preparedStatement.setInt(8, contactID);
+        preparedStatement.setInt(8, contact.getContactId());
         preparedStatement.setInt(9, userID);
         preparedStatement.setInt(10, appointmentID);
 
@@ -223,7 +229,7 @@ public class AppointmentsQuery {
     public static ObservableList<Appointment> getAppointmentsByCustomerID(int CustomerID) throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
-        String queryStatement = "SELECT * FROM appointments WHERE Customer_ID=?;";
+        String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Customer_ID=?;";
 
         DBQuery.setPreparedStatement(DBConnection.getConnection(), queryStatement);
         PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
@@ -248,7 +254,8 @@ public class AppointmentsQuery {
                         resultSet.getTimestamp("End").toLocalDateTime(),
                         resultSet.getInt("Customer_ID"),
                         resultSet.getInt("User_ID"),
-                        resultSet.getInt("Contact_ID")
+                        resultSet.getInt("Contact_ID"),
+                        resultSet.getString("Contact_Name")
                 );
 
                 appointments.add(newAppointment);
@@ -260,4 +267,87 @@ public class AppointmentsQuery {
         }
     }
 
+//    public static ObservableList<Appointment> checkAppointments(LocalDateTime localDateTime) throws SQLException {
+//        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+//
+//        LocalDateTime localDateTimePlus15 = localDateTime.plusMinutes(15);
+//
+//        String queryStatement = "SELECT * FROM appointments WHERE Start > ? AND Start < ?;";
+//
+//        DBQuery.setPreparedStatement(DBConnection.getConnection(), queryStatement);
+//        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+//
+//        preparedStatement.setDate(1, java.sql.Date.valueOf(localDateTime.toString()));
+//        preparedStatement.setDate(2, java.sql.Date.valueOf(localDateTimePlus15.toString()));
+//
+//
+//        try {
+//            preparedStatement.execute();
+//            ResultSet resultSet = preparedStatement.getResultSet();
+//
+//            // Forward scroll resultSet
+//            while (resultSet.next()) {
+//                Appointment newAppointment = new Appointment(
+//                        resultSet.getInt("Appointment_ID"),
+//                        resultSet.getString("Title"),
+//                        resultSet.getString("Description"),
+//                        resultSet.getString("Location"),
+//                        resultSet.getString("Type"),
+//                        resultSet.getDate("Start").toLocalDate(),
+//                        resultSet.getTimestamp("Start").toLocalDateTime(),
+//                        resultSet.getDate("End").toLocalDate(),
+//                        resultSet.getTimestamp("End").toLocalDateTime(),
+//                        resultSet.getInt("Customer_ID"),
+//                        resultSet.getInt("User_ID"),
+//                        resultSet.getInt("Contact_ID"),
+//                        null
+//                );
+//
+//                appointments.add(newAppointment);
+//            }
+//            return appointments;
+//        } catch (Exception e) {
+//            System.out.println("Error: " + e.getMessage());
+//            return null;
+//        }
+//    }
+
+    public static Appointment getAppointmentByAppointmentID(int AppointmentID) throws SQLException {
+
+        String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Appointment_ID=?;";
+
+        DBQuery.setPreparedStatement(DBConnection.getConnection(), queryStatement);
+        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+
+        preparedStatement.setInt(1, AppointmentID);
+
+        try {
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+
+            // Forward scroll resultSet
+            while (resultSet.next()) {
+                Appointment newAppointment = new Appointment(
+                        resultSet.getInt("Appointment_ID"),
+                        resultSet.getString("Title"),
+                        resultSet.getString("Description"),
+                        resultSet.getString("Location"),
+                        resultSet.getString("Type"),
+                        resultSet.getDate("Start").toLocalDate(),
+                        resultSet.getTimestamp("Start").toLocalDateTime(),
+                        resultSet.getDate("End").toLocalDate(),
+                        resultSet.getTimestamp("End").toLocalDateTime(),
+                        resultSet.getInt("Customer_ID"),
+                        resultSet.getInt("User_ID"),
+                        resultSet.getInt("Contact_ID"),
+                        resultSet.getString("Contact_Name")
+                );
+
+                return newAppointment;
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return null;
+    }
 }
