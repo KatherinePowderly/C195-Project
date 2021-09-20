@@ -2,7 +2,7 @@
 
 Author: Katherine Powderly 
 Contact: kpowder@wgu.edu
-Application Version: 
+Application Version: 1.0.0
 Date: 09/20/2021
 
 
@@ -24,7 +24,7 @@ JavaFX version: javafx.version=11.0.2
 
 ### Running the program: ###
 
-The opening screen will be the Login page. The user is able to login using their username and password. The Location Label will display the users location. If the location is France, the Login page will translate to French. Pressing the cancel button will prompt the user to close the application.
+The opening screen will be the Login page. The user is able to login using their username and password. The Location label will display the users location. If the location is France, the Login page will translate to French. Pressing the cancel button will prompt the user to close the application.
 
 Once the user successfully logins, a home screen will show. On the home screen, the user can navigate to "CUSTOMERS", "APPOINTMENTS", or "REPORTS". These links will take the user to their respective pages. The user may also logout and navigate back to the Login Screen.
 
@@ -32,7 +32,7 @@ On the Customers screen, a table will show a list of customers. At the bottom of
 
 On the Appointments screen, a table will show a list of appointments. These appointments may be filtered via the radio buttons based on appointments in the last week or month. At the bottom of the screen, the user create an appointment via the CREATE APPOINTMENT button. The user may also select an appointment to update or delete and use the UPDATE APPOINTMENT or the DELETE APPOINTMENT buttons to complete those actions. Selecting the SIMPLY Header will navigate user back to the Home Page.
 
-On the Reports screen, the user is allowed to generate the following reports: Total Number of Appointments grouped by Type, Total Number of Appointments grouped by Month, Total Number of Appointments by User ID, and Total Number of Appointments by Customer ID. The User ID and Customer ID are both selected by usage of a Combo Box.
+On the Reports screen, the user is allowed to generate the following reports: Total Number of Appointments grouped by Type, Total Number of Appointments grouped by Month, Appointments by User ID, and Total Number of Appointments by Customer ID. The User ID and Customer ID are both selected by usage of a Combo Box. Selecting the SIMPLY Header will navigate user back to the Home Page.
 
 --- 
 

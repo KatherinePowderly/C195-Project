@@ -24,7 +24,7 @@
       </Pane>
       <Pane layoutX="66.0" layoutY="206.0" prefHeight="144.0" prefWidth="224.0" style="-fx-background-color: white;">
          <children>
-            <Label layoutX="30.0" layoutY="8.0" prefHeight="27.0" prefWidth="173.0" text="Total Appt by User ID" />
+            <Label layoutX="30.0" layoutY="8.0" prefHeight="27.0" prefWidth="173.0" text="Schedule by User ID" />
             <Button fx:id="GenerateButton2" layoutX="50.0" layoutY="91.0" mnemonicParsing="false" onAction="#Generate2" prefHeight="27.0" prefWidth="124.0" text="GENERATE" />
             <ComboBox fx:id="UserCombo" layoutX="37.0" layoutY="42.0" prefWidth="150.0" />
          </children>

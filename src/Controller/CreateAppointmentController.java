@@ -137,7 +137,7 @@ public class CreateAppointmentController implements Initializable {
                         LocationTextField.getText(),
                         TypeCombo.getSelectionModel().getSelectedItem(),
                         LocalDateTime.of(StartDateDatePicker.getValue(), LocalTime.parse(StartTimeCombo.getSelectionModel().getSelectedItem())),
-                        LocalDateTime.of(EndDateDatePicker.getValue(), LocalTime.parse(StartTimeCombo.getSelectionModel().getSelectedItem())),
+                        LocalDateTime.of(EndDateDatePicker.getValue(), LocalTime.parse(EndTimeCombo.getSelectionModel().getSelectedItem())),
                         CustomerIDCombo.getSelectionModel().getSelectedItem(),
                         UserIDCombo.getSelectionModel().getSelectedItem());
 

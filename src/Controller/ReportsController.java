@@ -211,11 +211,30 @@ public class ReportsController implements Initializable {
         Integer userID = UserCombo.getSelectionModel().getSelectedItem();
         try {
             ObservableList<Appointment> appointments = AppointmentsQuery.getAppointmentsByUserID(userID);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Report: Customer Appointment Count by User ID");
-            alert.setContentText("Total number of Customer Appointments by User ID #" + userID + ": " + appointments.size());
-            alert.setResizable(true);
-            alert.showAndWait();
+
+
+            if (appointments != null) {
+                for (Appointment appointment: appointments) {
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Report: Customer Appointment by User ID");
+
+                    alert.setContentText("Appointments by User ID #" + userID + ": " +
+                            "\nAppointment ID: " + appointment.getAppointmentId() +
+                            "\nTitle: " + appointment.getTitle() +
+                            "\nType: " + appointment.getType() +
+                            "\nDescription: " + appointment.getDescription() +
+                            "\nStart Date: " + appointment.getStartDate() +
+                            "\nStart Time: " + appointment.getStartTime() +
+                            "\nEnd Date: " + appointment.getEndDate() +
+                            "\nEnd Time: " + appointment.getEndTime() +
+                            "\nCustomer ID: " + appointment.getCustomerId()
+                    );
+
+                    alert.setResizable(true);
+                    alert.showAndWait();
+                }
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
