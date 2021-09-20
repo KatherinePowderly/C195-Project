@@ -144,11 +144,11 @@ public class LoginController implements Initializable {
 
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Appointment Alert");
-                        alert.setContentText("Appointment starts in less than 15 minutes - Appointment ID: "
+                        alert.setContentText("Appointment starts in less than 15 minutes \nAppointment ID: "
                                 + appointment.getAppointmentId() +
-                                " Date: " +
+                                "\nDate: " +
                                 appointment.getStartDate() +
-                                " Time: " + appointment.getStartTime().toLocalTime());
+                                "\nTime: " + appointment.getStartTime().toLocalTime());
                         alert.setResizable(true);
                         alert.showAndWait();
                     }

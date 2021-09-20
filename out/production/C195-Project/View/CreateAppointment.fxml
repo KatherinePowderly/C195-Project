@@ -38,7 +38,6 @@
       <TextField fx:id="TitleTextField" layoutX="109.0" layoutY="122.0" prefHeight="39.0" prefWidth="170.0" />
       <TextField fx:id="DescriptionTextField" layoutX="109.0" layoutY="176.0" prefHeight="81.0" prefWidth="170.0" />
       <TextField fx:id="LocationTextField" layoutX="109.0" layoutY="266.0" prefHeight="39.0" prefWidth="170.0" />
-      <TextField fx:id="TypeTextField" layoutX="109.0" layoutY="319.0" prefHeight="39.0" prefWidth="170.0" />
       <Button fx:id="SaveButton" layoutX="227.0" layoutY="439.0" mnemonicParsing="false" onAction="#Save" text="SAVE" />
       <Button fx:id="CancelButton" layoutX="305.0" layoutY="439.0" mnemonicParsing="false" onAction="#Cancel" text="CANCEL" />
       <Button fx:id="HomeButton" layoutX="1.0" layoutY="5.0" mnemonicParsing="false" onAction="#Home" style="-fx-background-color: #ccc6ee;" text="SIMPLY">
@@ -93,5 +92,6 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <ComboBox fx:id="TypeCombo" layoutX="109.0" layoutY="320.0" prefHeight="39.0" prefWidth="170.0" />
    </children>
 </AnchorPane>

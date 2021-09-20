@@ -83,9 +83,6 @@ public class CreateAppointmentController implements Initializable {
     private TextField TitleTextField;
 
     @FXML
-    private TextField TypeTextField;
-
-    @FXML
     private Label TypeLabel;
 
     @FXML
@@ -119,12 +116,14 @@ public class CreateAppointmentController implements Initializable {
     private ComboBox<Integer> UserIDCombo;
 
     @FXML
+    private ComboBox<String> TypeCombo;
+
+    @FXML
     void Save(ActionEvent event) {
         boolean valid = validateNotEmpty(
                 TitleTextField.getText(),
                 DescriptionTextField.getText(),
                 LocationTextField.getText(),
-                TypeTextField.getText(),
                 AppointmentIDTextField.getText()
                 );
 
@@ -136,7 +135,7 @@ public class CreateAppointmentController implements Initializable {
                         TitleTextField.getText(),
                         DescriptionTextField.getText(),
                         LocationTextField.getText(),
-                        TypeTextField.getText(),
+                        TypeCombo.getSelectionModel().getSelectedItem(),
                         LocalDateTime.of(StartDateDatePicker.getValue(), LocalTime.parse(StartTimeCombo.getSelectionModel().getSelectedItem())),
                         LocalDateTime.of(EndDateDatePicker.getValue(), LocalTime.parse(StartTimeCombo.getSelectionModel().getSelectedItem())),
                         CustomerIDCombo.getSelectionModel().getSelectedItem(),
@@ -172,7 +171,7 @@ public class CreateAppointmentController implements Initializable {
         }
     }
 
-    private boolean validateNotEmpty(String title, String description, String location, String type, String appointmentId){
+    private boolean validateNotEmpty(String title, String description, String location, String appointmentId){
         if (ContactCombo.getSelectionModel().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
@@ -205,18 +204,18 @@ public class CreateAppointmentController implements Initializable {
             return false;
         }
 
-        if (type.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText("Type is required.");
-            alert.showAndWait();
-            return false;
-        }
-
         if (appointmentId.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setContentText("Appointment ID is required.");
+            alert.showAndWait();
+            return false;
+        }
+
+        if (TypeCombo.getSelectionModel().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setContentText("Type is required.");
             alert.showAndWait();
             return false;
         }
@@ -408,12 +407,22 @@ public class CreateAppointmentController implements Initializable {
         UserIDCombo.setItems(userIDComboList);
     }
 
+    private void populateTypeComboBox() {
+        ObservableList<String> typeList = FXCollections.observableArrayList();
+
+        typeList.addAll("Planning Session", "De-Briefing", "Follow-up", "Pre-Briefing", "Open Session");
+
+
+        TypeCombo.setItems(typeList);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         populateTimeComboBoxes();
         populateContactComboBox();
         populateCustomerIDComboBox();
         populateUserIDComboBox();
+        populateTypeComboBox();
     }
 }
 

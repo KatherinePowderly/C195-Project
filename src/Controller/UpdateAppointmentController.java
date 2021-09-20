@@ -82,9 +82,6 @@ public class UpdateAppointmentController implements Initializable {
     private TextField TitleTextField;
 
     @FXML
-    private TextField TypeTextField;
-
-    @FXML
     private Label TypeLabel;
 
     @FXML
@@ -118,6 +115,9 @@ public class UpdateAppointmentController implements Initializable {
     private ComboBox<Integer> UserIDCombo;
 
     @FXML
+    private ComboBox<String> TypeCombo;
+
+    @FXML
     void PickStartDate(ActionEvent event) {
 
     }
@@ -133,7 +133,6 @@ public class UpdateAppointmentController implements Initializable {
                 TitleTextField.getText(),
                 DescriptionTextField.getText(),
                 LocationTextField.getText(),
-                TypeTextField.getText(),
                 AppointmentIDTextField.getText()
         );
 
@@ -145,7 +144,7 @@ public class UpdateAppointmentController implements Initializable {
                         TitleTextField.getText(),
                         DescriptionTextField.getText(),
                         LocationTextField.getText(),
-                        TypeTextField.getText(),
+                        TypeCombo.getSelectionModel().getSelectedItem(),
                         LocalDateTime.of(StartDateDatePicker.getValue(), LocalTime.parse(StartTimeCombo.getSelectionModel().getSelectedItem())),
                         LocalDateTime.of(EndDateDatePicker.getValue(), LocalTime.parse(EndTimeCombo.getSelectionModel().getSelectedItem())),
                         CustomerIDCombo.getSelectionModel().getSelectedItem(),
@@ -182,7 +181,7 @@ public class UpdateAppointmentController implements Initializable {
         }
     }
 
-    private boolean validateNotEmpty(String title, String description, String location, String type, String appointmentId){
+    private boolean validateNotEmpty(String title, String description, String location, String appointmentId){
         if (ContactCombo.getSelectionModel().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
@@ -215,7 +214,7 @@ public class UpdateAppointmentController implements Initializable {
             return false;
         }
 
-        if (type.isEmpty()) {
+        if (TypeCombo.getSelectionModel().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setContentText("Type is required.");
@@ -401,12 +400,22 @@ public class UpdateAppointmentController implements Initializable {
         UserIDCombo.setItems(userIDComboList);
     }
 
+    private void populateTypeComboBox() {
+        ObservableList<String> typeList = FXCollections.observableArrayList();
+
+        typeList.addAll("Planning Session", "De-Briefing", "Follow-up", "Pre-Briefing", "Open Session");
+
+
+        TypeCombo.setItems(typeList);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         populateTimeComboBoxes();
         populateContactComboBox();
         populateCustomerIDComboBox();
         populateUserIDComboBox();
+        populateTypeComboBox();
 
         try {
             Appointment appointment = AppointmentsQuery.getAppointmentByAppointmentID(selectedAppointment.getAppointmentId());
@@ -415,7 +424,7 @@ public class UpdateAppointmentController implements Initializable {
             TitleTextField.setText(appointment.getTitle());
             DescriptionTextField.setText(appointment.getDescription());
             LocationTextField.setText(appointment.getLocation());
-            TypeTextField.setText(appointment.getType());
+            TypeCombo.getSelectionModel().select(appointment.getType());
             UserIDCombo.getSelectionModel().select(Integer.valueOf(appointment.getUserId()));
             AppointmentIDTextField.setText(String.valueOf(appointment.getAppointmentId()));
             StartDateDatePicker.setValue(appointment.getStartDate());

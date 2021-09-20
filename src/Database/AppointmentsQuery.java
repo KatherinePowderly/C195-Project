@@ -267,50 +267,46 @@ public class AppointmentsQuery {
         }
     }
 
-//    public static ObservableList<Appointment> checkAppointments(LocalDateTime localDateTime) throws SQLException {
-//        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
-//
-//        LocalDateTime localDateTimePlus15 = localDateTime.plusMinutes(15);
-//
-//        String queryStatement = "SELECT * FROM appointments WHERE Start > ? AND Start < ?;";
-//
-//        DBQuery.setPreparedStatement(DBConnection.getConnection(), queryStatement);
-//        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
-//
-//        preparedStatement.setDate(1, java.sql.Date.valueOf(localDateTime.toString()));
-//        preparedStatement.setDate(2, java.sql.Date.valueOf(localDateTimePlus15.toString()));
-//
-//
-//        try {
-//            preparedStatement.execute();
-//            ResultSet resultSet = preparedStatement.getResultSet();
-//
-//            // Forward scroll resultSet
-//            while (resultSet.next()) {
-//                Appointment newAppointment = new Appointment(
-//                        resultSet.getInt("Appointment_ID"),
-//                        resultSet.getString("Title"),
-//                        resultSet.getString("Description"),
-//                        resultSet.getString("Location"),
-//                        resultSet.getString("Type"),
-//                        resultSet.getDate("Start").toLocalDate(),
-//                        resultSet.getTimestamp("Start").toLocalDateTime(),
-//                        resultSet.getDate("End").toLocalDate(),
-//                        resultSet.getTimestamp("End").toLocalDateTime(),
-//                        resultSet.getInt("Customer_ID"),
-//                        resultSet.getInt("User_ID"),
-//                        resultSet.getInt("Contact_ID"),
-//                        null
-//                );
-//
-//                appointments.add(newAppointment);
-//            }
-//            return appointments;
-//        } catch (Exception e) {
-//            System.out.println("Error: " + e.getMessage());
-//            return null;
-//        }
-//    }
+    public static ObservableList<Appointment> getAppointmentsByUserID(int UserID) throws SQLException {
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+
+        String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE User_ID=?;";
+
+        DBQuery.setPreparedStatement(DBConnection.getConnection(), queryStatement);
+        PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
+
+        preparedStatement.setInt(1, UserID);
+
+        try {
+            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.getResultSet();
+
+            // Forward scroll resultSet
+            while (resultSet.next()) {
+                Appointment newAppointment = new Appointment(
+                        resultSet.getInt("Appointment_ID"),
+                        resultSet.getString("Title"),
+                        resultSet.getString("Description"),
+                        resultSet.getString("Location"),
+                        resultSet.getString("Type"),
+                        resultSet.getDate("Start").toLocalDate(),
+                        resultSet.getTimestamp("Start").toLocalDateTime(),
+                        resultSet.getDate("End").toLocalDate(),
+                        resultSet.getTimestamp("End").toLocalDateTime(),
+                        resultSet.getInt("Customer_ID"),
+                        resultSet.getInt("User_ID"),
+                        resultSet.getInt("Contact_ID"),
+                        resultSet.getString("Contact_Name")
+                );
+
+                appointments.add(newAppointment);
+            }
+            return appointments;
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
 
     public static Appointment getAppointmentByAppointmentID(int AppointmentID) throws SQLException {
 
