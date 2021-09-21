@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**This class creates and closes the connection to a MySQL Database.*/
 public class DBConnection {
 
     private static final String protocol = "jdbc";
@@ -22,6 +23,9 @@ public class DBConnection {
         return conn;
     }
 
+    /** This method starts the connection with the MYSQL Database
+     * @return Connection Connection to Database
+     */
     public static Connection startConnection() {
         try {
             Class.forName(MYSQLJDBCDriver);
@@ -38,6 +42,7 @@ public class DBConnection {
         return conn;
     }
 
+    /** This method closes the connection with the MYSQL Database */
     public static void closeConnection() {
 
         try {

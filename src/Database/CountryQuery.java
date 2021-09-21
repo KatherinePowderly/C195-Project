@@ -8,8 +8,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** This class contains SQL operations made on the Country Collection.*/
 public class CountryQuery {
 
+    /** This method gets a list of Country Objects
+     * @return ObservableList List containing Country Objects
+     * @throws SQLException Catches SQLException and prints stacktrace.
+     */
     public static ObservableList<Country> getCountries() throws SQLException {
         ObservableList<Country> countries = FXCollections.observableArrayList();
 
@@ -39,6 +44,11 @@ public class CountryQuery {
         }
     }
 
+    /** This method gets a Country Object by Country Name
+     * @param country String value of Country Name
+     * @return Country Country Object
+     * @throws SQLException Catches SQLException and prints stacktrace.
+     */
     public static Country getCountryId(String country) throws SQLException {
 
         String queryStatement = "SELECT * FROM countries WHERE Country=?";

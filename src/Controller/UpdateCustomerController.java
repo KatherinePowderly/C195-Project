@@ -22,8 +22,12 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/** Controller to Update Customer
+ */
 public class UpdateCustomerController implements Initializable {
 
+    /** Customer selected from Customer Controller View
+     */
     private static Customer selectedCustomer;
 
     @FXML
@@ -80,6 +84,10 @@ public class UpdateCustomerController implements Initializable {
     @FXML
     private TextField IDTextField;
 
+    /** Populates Division Combo Box with List of Divisions based on selected Country
+     * Catches SQLException, throws alert, and prints stacktrace.
+     * @param event ActionEvent selects country
+     */
     @FXML
     void SelectCountry(ActionEvent event) {
         ObservableList<String> divisionList = FXCollections.observableArrayList();
@@ -96,6 +104,11 @@ public class UpdateCustomerController implements Initializable {
         }
     }
 
+    /** Updates Customer
+     * Calls validation function
+     * Catches Exception, throws alert, and prints stacktrace.
+     * @param event ActionEvent updates Customer if valid when Save button is clicked
+     */
     @FXML
     void Save(ActionEvent event) {
         boolean valid = validateNotEmpty(
@@ -144,6 +157,14 @@ public class UpdateCustomerController implements Initializable {
         }
     }
 
+    /** Helper function to validate Customer Fields are selected and not empty
+     * Throws alert if fields are not selected or are empty
+     * @param name String value of Customer Name
+     * @param address String value of Customer Address
+     * @param postalCode String value of Customer Postal Code
+     * @param phone String value of Customer Phone Number
+     * @return Boolean Returns true if valid and false if not valid
+     */
     private boolean validateNotEmpty(String name, String address, String postalCode, String phone){
         if (name.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -196,10 +217,17 @@ public class UpdateCustomerController implements Initializable {
         return true;
     }
 
+    /** Method to receive selected customer from Customer View
+     * @param customer Selected Customer
+     */
     public static void receiveSelectedCustomer(Customer customer) {
         selectedCustomer = customer;
     }
 
+    /** Cancels Customer created and navigates back to Customer View
+     * Throws alert if Load Screen Error
+     * @param event ActionEvent Navigates to Customer View when cancel button is clicked
+     */
     @FXML
     void Cancel(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Navigate back to Customers?");
@@ -221,6 +249,10 @@ public class UpdateCustomerController implements Initializable {
         }
     }
 
+    /** Navigates to Home View
+     *  Catches Exception, throws alert, and prints stacktrace.
+     * @param event ActionEvent navigates to Home Screen when clicked
+     */
     @FXML
     void Home(ActionEvent event) {
         try {
@@ -238,6 +270,8 @@ public class UpdateCustomerController implements Initializable {
         }
     }
 
+    /** Populates Division Combo Box
+     */
     private void setDivisionCombo(){
         ObservableList<String> divisionList = FXCollections.observableArrayList();
 
@@ -255,6 +289,9 @@ public class UpdateCustomerController implements Initializable {
         DivisionCombo.setItems(divisionList);
     }
 
+
+    /** Populates Country Combo Box
+     */
     private void setCountryCombo(){
         ObservableList<String> countryList = FXCollections.observableArrayList();
 
@@ -272,7 +309,11 @@ public class UpdateCustomerController implements Initializable {
         CountryCombo.setItems(countryList);
     }
 
-
+    /** This method sets the fields with the selected customer fields and initializes the combo boxes in the Update Customer view.
+     *  Catches Exception, throws alert, and prints stacktrace.
+     *  @param location Location to resolve relative paths
+     *  @param resources Resources to localize root object
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Populate dropdown for division and country
@@ -286,6 +327,6 @@ public class UpdateCustomerController implements Initializable {
         AddressTextField.setText(selectedCustomer.getAddress());
         PhoneTextField.setText(selectedCustomer.getPhoneNumber());
         CountryCombo.getSelectionModel().select(selectedCustomer.getCountry());
-        DivisionCombo.getSelectionModel().select(Integer.valueOf(selectedCustomer.getDivisionId()));
+        DivisionCombo.getSelectionModel().select(selectedCustomer.getDivision());
     }
 }

@@ -3,7 +3,6 @@ package Controller;
 import Database.AppointmentsQuery;
 import Database.UsersQuery;
 import Model.Appointment;
-import Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,16 +26,27 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+interface LogActivity{
+    public String getFileName();
+}
+
+/** Login Controller
+ *  - Lambda Expression created to pass Login Activity filename to functions: createFile, loginSuccess, and loginFailure.
+ *  This reduces code and add re-usability to application
+ */
 public class LoginController implements Initializable {
 
-    ObservableList<User> users;
+    /** Lambda Expression
+     */
+    LogActivity logActivity = () -> {
+        return "login_activity.txt";
+    };
 
     @FXML
     private Label Description;
 
     @FXML
     private Label Header;
-
 
     @FXML
     private Label Title;
@@ -65,6 +75,11 @@ public class LoginController implements Initializable {
     @FXML
     private Button LoginButton;
 
+    /** This method enables the user to login
+     *  Calls helper functions to create a new log activity text file and validates that the login was successful
+     *  Catches Exception, throws alert, and prints stacktrace.
+     * @param event ActionEvent Logs into application when logout button is clicked
+     */
     @FXML
     void Login(ActionEvent event) {
         validateNotEmpty("Username", UsernameTextField.getText());
@@ -105,9 +120,13 @@ public class LoginController implements Initializable {
         }
     }
 
+    /** Helper function to create login_activity.txt file if it doesn't already exist
+     *  Catches Exception, throws alert, and prints stacktrace.
+     *  Retrieves file name value from Lambda Expression
+     */
     private void createFile(){
         try {
-            File newfile = new File("login_activity.txt");
+            File newfile = new File(logActivity.getFileName());
             if (newfile.createNewFile()) {
                 System.out.println("File created:" + newfile.getName());
             } else {
@@ -118,6 +137,11 @@ public class LoginController implements Initializable {
         }
     }
 
+    /** Validates Username and Password Text Fields are not empty
+     *  Catches Exception, throws alert, and prints stacktrace.
+     * @param label Label for Username and Password
+     * @param textField Text Field Value for Username and Password
+     */
     private void validateNotEmpty(String label, String textField){
         if (textField.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -127,6 +151,9 @@ public class LoginController implements Initializable {
         }
     }
 
+    /** This method alerts the user if there is an upcoming appointment within 15 minutes or if there are no upcoming appointments
+     *  Catches Exception, throws alert, and prints stacktrace.
+     */
     private void alertAppointment(){
         LocalDateTime localDateTime = LocalDateTime.now();
         LocalDateTime localDateTimePlus15 = localDateTime.plusMinutes(15);
@@ -174,12 +201,16 @@ public class LoginController implements Initializable {
         }
     }
 
+    /** Helper function to write user login success activity to the login_activity.txt file
+     *  Catches IOException, throws alert, and prints stacktrace.
+     *  Retrieves file name value from Lambda Expression
+     */
     private void loginSuccess() {
 
         alertAppointment();
 
         try {
-            FileWriter fileWriter = new FileWriter("login_activity.txt", true);
+            FileWriter fileWriter = new FileWriter(logActivity.getFileName(), true);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             Date date = new Date(System.currentTimeMillis());
             fileWriter.write("Successful Login: Username=" + UsernameTextField.getText() + " Password=" + PasswordTextField.getText() + " Timestamp: " + simpleDateFormat.format(date) + "\n");
@@ -189,9 +220,13 @@ public class LoginController implements Initializable {
         }
     }
 
+    /** Helper function to write user login failure activity to the login_activity.txt file
+     *  Catches IOException, throws alert, and prints stacktrace.
+     *  Retrieves file name value from Lambda Expression
+     */
     private void loginFailure() {
         try {
-            FileWriter fileWriter = new FileWriter("login_activity.txt", true);
+            FileWriter fileWriter = new FileWriter(logActivity.getFileName(), true);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             Date date = new Date(System.currentTimeMillis());
             fileWriter.write("Failed Login: Username=" + UsernameTextField.getText() + " Password=" + PasswordTextField.getText() + " Timestamp: " + simpleDateFormat.format(date) + "\n");
@@ -201,6 +236,10 @@ public class LoginController implements Initializable {
         }
     }
 
+    /** Prompts the user to close the application when clicked
+     *  Catches Exception, throws alert, and prints stacktrace.
+     * @param event ActionEvent prompts the user to close the application by dialog box
+     */
     @FXML
     void Cancel(ActionEvent event) {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("Language/language", Locale.getDefault());
@@ -216,6 +255,11 @@ public class LoginController implements Initializable {
         }
     }
 
+    /** This method initializes the Login View
+     *  Gets region and converts to French if location in France
+     *  @param location Location to resolve relative paths
+     *  @param resources Resources to localize root object
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

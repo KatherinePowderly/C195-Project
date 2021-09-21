@@ -6,11 +6,9 @@ import Database.UsersQuery;
 import Model.Appointment;
 import Model.Customer;
 import Model.User;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,17 +16,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Circle;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.Date;
 import java.util.ResourceBundle;
 
+/** Generate Reports Controller
+ */
 public class ReportsController implements Initializable {
 
     @FXML
@@ -67,6 +64,10 @@ public class ReportsController implements Initializable {
     @FXML
     private ComboBox<Integer> CustomerCombo;
 
+    /** This method generates a report based on Type of Month
+     *  The report generated totals the number of appointments per Type and per Month
+     *  @param event Generates report based on Radio Button selected
+     */
     @FXML
     void Generate1(ActionEvent event) {
         // Type
@@ -206,6 +207,10 @@ public class ReportsController implements Initializable {
         }
     }
 
+    /** This method generates appointment reports by selected user
+     *  Schedules are displayed on a dialog box per appointment on file for selected User
+     *  @param event Generates report based on Combo Box field selected
+     */
     @FXML
     void Generate2(ActionEvent event) {
         Integer userID = UserCombo.getSelectionModel().getSelectedItem();
@@ -241,6 +246,9 @@ public class ReportsController implements Initializable {
         }
     }
 
+    /** This method generates the total of appointments per customer ID
+     *  @param event Generates report based on Combo Box field selected
+     */
     @FXML
     void Generate3(ActionEvent event) {
         Integer customerID = CustomerCombo.getSelectionModel().getSelectedItem();
@@ -257,6 +265,10 @@ public class ReportsController implements Initializable {
         }
     }
 
+    /** Navigates to Home View
+     *  Catches Exception, throws alert, and prints stacktrace.
+     * @param event ActionEvent navigates to Home Screen when clicked
+     */
     @FXML
     void Home(ActionEvent event) {
         try {
@@ -274,6 +286,8 @@ public class ReportsController implements Initializable {
         }
     }
 
+    /** Populates User ID Combo Box with User ID List
+     */
     private void populateUserIDComboBox() {
         ObservableList<Integer> userIDComboList = FXCollections.observableArrayList();
 
@@ -291,6 +305,8 @@ public class ReportsController implements Initializable {
         UserCombo.setItems(userIDComboList);
     }
 
+    /** Populates Customer ID Combo Box with Customer ID List
+     */
     private void populateCustomerIDComboBox() {
         ObservableList<Integer> customerIDComboList = FXCollections.observableArrayList();
 
@@ -308,7 +324,10 @@ public class ReportsController implements Initializable {
         CustomerCombo.setItems(customerIDComboList);
     }
 
-
+    /** This method initializes the combo boxes in the Reports view.
+     *  @param location Location to resolve relative paths
+     *  @param resources Resources to localize root object
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         populateCustomerIDComboBox();

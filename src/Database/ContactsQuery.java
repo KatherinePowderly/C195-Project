@@ -8,9 +8,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** This class contains SQL operations made on the Contacts Collection.*/
 public class ContactsQuery {
 
-    public static ObservableList getContacts() throws SQLException {
+    /** This method gets a list of Contact and Appointment Objects joined by the Contact ID
+     * @return ObservableList Returns list of Contacts
+     * @throws SQLException Catches SQLException, prints stacktrace, and error message.
+     */
+    public static ObservableList<Contact> getContacts() throws SQLException {
         ObservableList<Contact> contacts = FXCollections.observableArrayList();
 
         String queryStatement = "SELECT * FROM contacts AS c INNER JOIN appointments AS a ON c.Contact_ID = a.Contact_ID;";
@@ -39,6 +44,11 @@ public class ContactsQuery {
         }
     }
 
+    /** This method gets a Contact Object by the Contact Name
+     * @param contactName String value of Contact Name
+     * @return Contact Returns Contact
+     * @throws SQLException Catches SQLException, prints stacktrace, and error message.
+     */
     public static Contact getContactId(String contactName) throws SQLException {
         String queryStatement = "SELECT * FROM contacts WHERE Contact_Name=?";
 

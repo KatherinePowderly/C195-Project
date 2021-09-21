@@ -9,8 +9,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** This class contains SQL operations made on the Users Collection.*/
 public class UsersQuery {
 
+    /** This method checks if the username and password are valid
+     * @param username Username
+     * @param password Password
+     * @return Boolean Returns true if valid and false if not valid
+     * @throws SQLException Catches SQLException and prints stacktrace.
+     */
     public static boolean checkUsernamePassword(String username, String password) throws SQLException {
         String searchStatement = "SELECT * FROM users WHERE User_Name=? AND Password=?";
 
@@ -30,7 +37,11 @@ public class UsersQuery {
         }
     }
 
-    public static ObservableList getUsers() throws SQLException {
+    /** This method gets all Users from the User Collection
+     * @return ObservableList Returns list of Users
+     * @throws SQLException Catches SQLException and prints stacktrace.
+     */
+    public static ObservableList<User> getUsers() throws SQLException {
         ObservableList<User> users = FXCollections.observableArrayList();
 
         String searchStatement = "SELECT * FROM users;";
@@ -43,7 +54,6 @@ public class UsersQuery {
             ResultSet resultSet = preparedStatement.getResultSet();
             ;
 
-            // Forward scroll resultSet
             while (resultSet.next()) {
                 User newUser = new User(
                         resultSet.getInt("User_ID"),

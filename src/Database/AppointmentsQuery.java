@@ -2,15 +2,19 @@ package Database;
 
 import Model.Appointment;
 import Model.Contact;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 
+/** This class contains SQL operations made on the Appointments Collection.*/
 public class AppointmentsQuery {
 
+    /** This method gets all Appointment and Contact Objects joined by the Contact ID
+     * @return ObservableList Returns list of Appointments
+     * @throws SQLException Catches SQLException, prints stacktrace, and error message.
+     */
     public static ObservableList<Appointment> getAppointments() throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
@@ -23,7 +27,6 @@ public class AppointmentsQuery {
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getResultSet();
 
-            // Forward scroll resultSet
             while (resultSet.next()) {
                 Appointment newAppointment = new Appointment(
                         resultSet.getInt("Appointment_ID"),
@@ -50,6 +53,10 @@ public class AppointmentsQuery {
         }
     }
 
+    /** This method gets a list of Appointment Objects in the last 30 days
+     * @return ObservableList Returns list of Appointments
+     * @throws SQLException Catches SQLException, prints stacktrace, and error message.
+     */
     public static ObservableList<Appointment> getAppointmentsMonth() throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
@@ -67,7 +74,6 @@ public class AppointmentsQuery {
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getResultSet();
 
-            // Forward scroll resultSet
             while (resultSet.next()) {
                 Appointment newAppointment = new Appointment(
                         resultSet.getInt("Appointment_ID"),
@@ -94,6 +100,10 @@ public class AppointmentsQuery {
         }
     }
 
+    /** This method gets a list of appointments in the last 7 days
+     * @return ObservableList Returns list of Appointments
+     * @throws SQLException Catches SQLException, prints stacktrace, and error message.
+     */
     public static ObservableList<Appointment> getAppointmentsWeek() throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
@@ -111,7 +121,6 @@ public class AppointmentsQuery {
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getResultSet();
 
-            // Forward scroll resultSet
             while (resultSet.next()) {
                 Appointment newAppointment = new Appointment(
                         resultSet.getInt("Appointment_ID"),
@@ -138,6 +147,19 @@ public class AppointmentsQuery {
         }
     }
 
+    /** This method creates a new Appointment
+     * @param contactName String value of Appointment Contact Name
+     * @param title String value of Appointment Title
+     * @param description String value of Appointment Description
+     * @param location String value of Appointment Location
+     * @param type String value of Appointment Type
+     * @param start LocalDateTime value of Appointment Start
+     * @param end LocalDateTime value of Appointment End
+     * @param customerId Int value of Customer ID
+     * @param userID Int value of User ID
+     * @return Boolean Returns true if the appointment was successfully created and false if the appointment creation failed
+     * @throws SQLException Catches SQLException, prints stacktrace, and error message.
+     */
     public static boolean createAppointment(String contactName, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, Integer customerId, Integer userID) throws SQLException {
 
         Contact contact = ContactsQuery.getContactId(contactName);
@@ -171,6 +193,11 @@ public class AppointmentsQuery {
         }
     }
 
+    /** This method deletes an Appointment by Appointment ID
+     * @param appointmentId Int value of Appointment ID
+     * @return Boolean Returns true if the appointment was successfully deleted and false if the appointment deletion failed
+     * @throws SQLException Catches SQLException, prints stacktrace, and error message.
+     */
     public static boolean deleteAppointment(int appointmentId) throws SQLException {
         String insertStatement = "DELETE from appointments WHERE Appointment_Id=?";
 
@@ -193,6 +220,20 @@ public class AppointmentsQuery {
         }
     }
 
+    /** This method updates an Appointment by Appointment ID
+     * @param contactName String value of Appointment Contact Name
+     * @param title String value of Appointment Title
+     * @param description String value of Appointment Description
+     * @param location String value of Appointment Location
+     * @param type String value of Appointment Type
+     * @param start LocalDateTime value of Appointment Start
+     * @param end LocalDateTime value of Appointment End
+     * @param customerId Int value of Customer ID
+     * @param userID Int value of User ID
+     * @param appointmentID Int value of Appointment ID
+     * @return Boolean Returns true if the appointment was successfully updated and false if the appointment update failed
+     * @throws SQLException Catches SQLException, prints stacktrace, and error message.
+     */
     public static boolean updateAppointment(String contactName, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end, Integer customerId, Integer userID, Integer appointmentID) throws SQLException {
         Contact contact = ContactsQuery.getContactId(contactName);
 
@@ -226,6 +267,11 @@ public class AppointmentsQuery {
         }
     }
 
+    /** This method gets an Appointment by Customer ID
+     * @param CustomerID Int value of Customer ID
+     * @return ObservableList List of Appointments
+     * @throws SQLException Catches SQLException, prints stacktrace, and error message.
+     */
     public static ObservableList<Appointment> getAppointmentsByCustomerID(int CustomerID) throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
@@ -267,6 +313,11 @@ public class AppointmentsQuery {
         }
     }
 
+    /** This method gets an Appointment by User ID
+     * @param UserID Int value of User ID
+     * @return ObservableList List of Appointments
+     * @throws SQLException Catches SQLException, prints stacktrace, and error message.
+     */
     public static ObservableList<Appointment> getAppointmentsByUserID(int UserID) throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
@@ -308,6 +359,11 @@ public class AppointmentsQuery {
         }
     }
 
+    /** This method gets an Appointment by Appointment ID
+     * @param AppointmentID Int value of Appointment ID
+     * @return Appointment Appointment
+     * @throws SQLException Catches SQLException, prints stacktrace, and error message.
+     */
     public static Appointment getAppointmentByAppointmentID(int AppointmentID) throws SQLException {
 
         String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Appointment_ID=?;";

@@ -2,7 +2,6 @@ package Controller;
 
 import Database.AppointmentsQuery;
 import Database.CustomersQuery;
-import Model.Appointment;
 import Model.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,8 +20,12 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/** Controller for Viewing and Manipulating Customers
+ */
 public class CustomersController implements Initializable {
 
+    /** List of Customers
+     */
     static ObservableList<Customer> customers;
 
     @FXML
@@ -67,6 +70,10 @@ public class CustomersController implements Initializable {
     @FXML
     private TableColumn<?, ?> CustomerIDColumn;
 
+    /** Navigates to Create Customer View when clicked
+     * Catches Exception, throws alert, and prints stacktrace.
+     * @param event ActionEvent navigates to Create Customer View when Create Customer button is clicked
+     */
     @FXML
     void CreateCustomer(ActionEvent event) {
         try {
@@ -84,6 +91,11 @@ public class CustomersController implements Initializable {
         }
     }
 
+    /** Navigates to Update Customer View when clicked
+     * Customer must be selected prior to clicking Update Customer button or it will throw an error dialog
+     * Catches Exception, throws alert, and prints stacktrace.
+     * @param event ActionEvent navigates to Create Customer View when Create Customer button is clicked
+     */
     @FXML
     void UpdateCustomer(ActionEvent event) {
 
@@ -114,6 +126,11 @@ public class CustomersController implements Initializable {
     @FXML
     private Button SearchButton;
 
+    /** Helper function to validate customer is allowed to be deleted
+     * @param selectedCustomer Customer selected from Customer View for deletion
+     * Catches Exception, throws alert, and prints stacktrace.
+     * @return boolean Returns true if the customer is allowed to be deleted and false if not
+     */
     private boolean checkAppointments(Customer selectedCustomer) {
         try {
             ObservableList appointments = AppointmentsQuery.getAppointmentsByCustomerID(selectedCustomer.getCustomerId());
@@ -129,6 +146,12 @@ public class CustomersController implements Initializable {
         }
     }
 
+    /** Deletes customer when clicked.
+     * Customer must be selected prior to clicking Delete Customer button or it will throw an error dialog.
+     * Calls validation function to verify Customer is allowed to be deleted
+     * Catches Exception, throws alert, and prints stacktrace.
+     * @param event ActionEvent deletes customer when clicked
+     */
     @FXML
     void DeleteCustomer(ActionEvent event) {
 
@@ -172,6 +195,10 @@ public class CustomersController implements Initializable {
         }
     }
 
+    /** Navigates to Home View
+     *  Catches Exception, throws alert, and prints stacktrace.
+     * @param event ActionEvent navigates to Home Screen when clicked
+     */
     @FXML
     void Home(ActionEvent event) {
         try {
@@ -189,12 +216,20 @@ public class CustomersController implements Initializable {
         }
     }
 
+    /** Updates Customer Table based on search text
+     * @param event ActionEvent when search button is clicked
+     */
     @FXML
     void SearchCustomers(ActionEvent event) {
         ObservableList<Customer> updateTable = lookupCustomer(SearchTextField.getText());
         CustomersTable.setItems(updateTable);
     }
 
+    /** Helper function for Search Functionality
+     * Gets Customer List based on Search input
+     * @param input String value of search text
+     * @return ObservableList List of Customers
+     */
     private static ObservableList<Customer> lookupCustomer(String input) {
         ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
@@ -208,6 +243,11 @@ public class CustomersController implements Initializable {
         return customerList;
     }
 
+    /** This method initializes the table in the Customers View.
+     *  Catches Exception, throws alert, and prints stacktrace.
+     *  @param location Location to resolve relative paths
+     *  @param resources Resources to localize root object
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {

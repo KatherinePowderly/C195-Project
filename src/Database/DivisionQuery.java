@@ -1,7 +1,6 @@
 package Database;
 
 import Model.Country;
-import Model.Customer;
 import Model.Division;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +9,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** This class contains SQL operations made on the Divisions Collection.*/
 public class DivisionQuery {
+
+    /** This method gets a list of Divisions
+     * @return ObservableList List containing Division Objects
+     * @throws SQLException Catches SQLException and prints stacktrace.
+     */
     public static ObservableList<Division> getDivisions() throws SQLException {
         ObservableList<Division> divisions = FXCollections.observableArrayList();
 
@@ -23,7 +28,6 @@ public class DivisionQuery {
             preparedStatement.execute();
             ResultSet resultSet = preparedStatement.getResultSet();
 
-            // Forward scroll resultSet
             while (resultSet.next()) {
 
                 Division newDivision = new Division(
@@ -41,6 +45,11 @@ public class DivisionQuery {
         }
     }
 
+    /** This method gets a Division by the Division Name
+     * @param division String value of Division Name
+     * @return Division Division Object
+     * @throws SQLException Catches SQLException and prints stacktrace.
+     */
     public static Division getDivisionId(String division) throws SQLException {
         String queryStatement = "SELECT * FROM first_level_divisions WHERE Division=?";
 
@@ -68,6 +77,11 @@ public class DivisionQuery {
         return null;
     }
 
+    /** This method gets a List of Divisions by Country
+     * @param country String value of Country Name
+     * @return ObservableList List containing Division Objects
+     * @throws SQLException Catches SQLException and prints stacktrace.
+     */
     public static ObservableList<Division> getDivisionsByCountry(String country) throws SQLException {
         Country newCountry = CountryQuery.getCountryId(country);
 

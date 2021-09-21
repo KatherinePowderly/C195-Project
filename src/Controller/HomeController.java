@@ -16,7 +16,17 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/** Home Controller - Primary means of Navigation
+ *  - Lambda Expression created to pass Login Activity filename to functions: createFile and logoutSuccess.
+ *  This reduces code and add re-usability to application
+ */
 public class HomeController {
+
+    /** Lambda Expression
+     */
+    LogActivity logActivity = () -> {
+        return "login_activity.txt";
+    };
 
     @FXML
     private Label Header;
@@ -33,6 +43,11 @@ public class HomeController {
     @FXML
     private Button LogoutButton;
 
+    /** This method enables the user to logout
+     *  Calls helper functions to create a new log activity text file and validates that the logout was successful
+     *  Catches Exception, throws alert, and prints stacktrace.
+     * @param event ActionEvent Logs out of application when logout button is clicked
+     */
     @FXML
     void Logout(ActionEvent event) {
         createFile();
@@ -53,9 +68,13 @@ public class HomeController {
         }
     }
 
+    /** Helper function to write user logout activity to the login_activity.txt file
+     *  Catches Exception, throws alert, and prints stacktrace.
+     *  Retrieves value from Lambda Expression
+     */
     private void logoutSuccess() {
         try {
-            FileWriter fileWriter = new FileWriter("login_activity.txt", true);
+            FileWriter fileWriter = new FileWriter(logActivity.getFileName(), true);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
             Date date = new Date(System.currentTimeMillis());
             fileWriter.write("Successful Logout: " + simpleDateFormat.format(date) + "\n");
@@ -65,9 +84,13 @@ public class HomeController {
         }
     }
 
+    /** Helper function to create login_activity.txt file if it doesn't already exist
+     *  Catches Exception, throws alert, and prints stacktrace.
+     *  Retrieves value from Lambda Expression
+     */
     private void createFile(){
         try {
-            File newfile = new File("login_activity.txt");
+            File newfile = new File(logActivity.getFileName());
             if (newfile.createNewFile()) {
                 System.out.println("File created:" + newfile.getName());
             } else {
@@ -78,6 +101,10 @@ public class HomeController {
         }
     }
 
+    /** Navigates to Customer View
+     *  Catches Exception, throws alert, and prints stacktrace.
+     * @param event ActionEvent navigates to Customers Screen when clicked
+     */
     @FXML
     void Customers(ActionEvent event) {
         try {
@@ -95,6 +122,10 @@ public class HomeController {
         }
     }
 
+    /** Navigates to Appointments View
+     *  Catches Exception, throws alert, and prints stacktrace.
+     * @param event ActionEvent navigates to Appointments Screen when clicked
+     */
     @FXML
     void Appointments(ActionEvent event) {
         try {
@@ -112,6 +143,10 @@ public class HomeController {
         }
     }
 
+    /** Navigates to Reports View
+     *  Catches Exception, throws alert, and prints stacktrace.
+     * @param event ActionEvent navigates to Reports Screen when clicked
+     */
     @FXML
     void Reports(ActionEvent event) {
         try {

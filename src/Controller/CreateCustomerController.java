@@ -21,6 +21,8 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/** Create Customer Controller
+ */
 public class CreateCustomerController implements Initializable {
 
     @FXML
@@ -77,6 +79,10 @@ public class CreateCustomerController implements Initializable {
     @FXML
     private TextField IDTextField;
 
+    /** Populates Division Combo Box with List of Divisions based on selected Country
+     * Catches SQLException, throws alert, and prints stacktrace.
+     * @param event ActionEvent selects country
+     */
     @FXML
     void SelectCountry(ActionEvent event) {
         ObservableList<String> divisionList = FXCollections.observableArrayList();
@@ -98,6 +104,11 @@ public class CreateCustomerController implements Initializable {
 
     }
 
+    /** Creates Customer
+     * Calls validation function
+     * Catches Exception, throws alert, and prints stacktrace.
+     * @param event ActionEvent creates Customer if valid when Save button is clicked
+     */
     @FXML
     void Save(ActionEvent event) throws SQLException {
         boolean valid = validateNotEmpty(
@@ -145,6 +156,14 @@ public class CreateCustomerController implements Initializable {
         }
     }
 
+    /** Helper function to validate Customer Fields are selected and not empty
+     * Throws alert if fields are not selected or are empty
+     * @param name String value of Customer Name
+     * @param address String value of Customer Address
+     * @param postalCode String value of Customer Postal Code
+     * @param phone String value of Customer Phone Number
+     * @return Boolean Returns true if valid and false if not valid
+     */
     private boolean validateNotEmpty(String name, String address, String postalCode, String phone){
         if (name.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -197,6 +216,10 @@ public class CreateCustomerController implements Initializable {
         return true;
     }
 
+    /** Cancels Customer created and navigates back to Customer View
+     * Throws alert if Load Screen Error
+     * @param event ActionEvent Navigates to Customer View when cancel button is clicked
+     */
     @FXML
     void Cancel(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Navigate back to Customers?");
@@ -218,6 +241,10 @@ public class CreateCustomerController implements Initializable {
         }
     }
 
+    /** Navigates to Home View
+     *  Catches Exception, throws alert, and prints stacktrace.
+     * @param event ActionEvent navigates to Home Screen when clicked
+     */
     @FXML
     void Home(ActionEvent event) {
         try {
@@ -235,6 +262,8 @@ public class CreateCustomerController implements Initializable {
         }
     }
 
+    /** Populates Division Combo Box
+     */
     private void setDivisionCombo(){
         ObservableList<String> divisionList = FXCollections.observableArrayList();
 
@@ -252,6 +281,8 @@ public class CreateCustomerController implements Initializable {
         DivisionCombo.setItems(divisionList);
     }
 
+    /** Populates Country Combo Box
+     */
     private void setCountryCombo(){
         ObservableList<String> countryList = FXCollections.observableArrayList();
 
@@ -269,6 +300,10 @@ public class CreateCustomerController implements Initializable {
         CountryCombo.setItems(countryList);
     }
 
+    /** This method initializes the combo boxes in the Create Customer view.
+     *  @param location Location to resolve relative paths
+     *  @param resources Resources to localize root object
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setDivisionCombo();

@@ -1,15 +1,7 @@
 package Controller;
 
 import Database.AppointmentsQuery;
-import Database.ContactsQuery;
-import Database.CustomersQuery;
 import Model.Appointment;
-import Model.Contact;
-import Model.Customer;
-import javafx.beans.Observable;
-import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,14 +14,17 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import javax.swing.text.View;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/** Controller for Viewing and Manipulating Appointments
+ */
 public class AppointmentsController implements Initializable {
 
+    /** List of Appointments
+     */
     static ObservableList<Appointment> appointments;
 
     @FXML
@@ -98,7 +93,11 @@ public class AppointmentsController implements Initializable {
     @FXML
     private ToggleGroup ToggleView;
 
-
+    /** Toggle View - All, Week, or Month.
+     * Sets Appointment Table based on Radio Button selected by User.
+     * Catches SQL exceptions and prints stacktrace.
+     * @param event ActionEvent updates Appointment Table when Radio Button is selected
+     */
     @FXML
     void ViewToggle(ActionEvent event) {
 
@@ -129,6 +128,10 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /** Navigates to Create Appointment View when clicked
+     * Catches Exception, throws alert, and prints stacktrace.
+     * @param event ActionEvent creates Appointment when Create Appointment button is clicked
+     */
     @FXML
     void CreateAppointment(ActionEvent event) {
         try {
@@ -146,6 +149,11 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /** Navigates to Update Appointment View when clicked.
+     * Appointment must be selected prior to clicking Update Appointment button or it will throw an error dialog.
+     * Catches Exception, throws alert, and prints stacktrace.
+     * @param event ActionEvent updates Appointment when Update Appointment button is clicked
+     */
     @FXML
     void UpdateAppointment(ActionEvent event) {
         UpdateAppointmentController.receiveSelectedAppointment(AppointmentsTable.getSelectionModel().getSelectedItem());
@@ -172,6 +180,11 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+    /** Deletes appointment when clicked.
+     * Appointment must be selected prior to clicking Delete Appointment button or it will throw an error dialog.
+     * Catches Exception, throws alert, and prints stacktrace.
+     * @param event ActionEvent deletes appointment when clicked
+     */
     @FXML
     void DeleteAppointment(ActionEvent event) {
         Appointment selectedAppointment = AppointmentsTable.getSelectionModel().getSelectedItem();
@@ -211,6 +224,10 @@ public class AppointmentsController implements Initializable {
 
     }
 
+    /** Navigates to Home Screen
+     * Catches Exception, throws alert, and prints stacktrace.
+     * @param event ActionEvent navigates to Home Screen when clicked
+     */
     @FXML
     void Home(ActionEvent event) {
         try {
@@ -228,12 +245,21 @@ public class AppointmentsController implements Initializable {
         }
     }
 
+
+    /** Updates Appointment Table based on search text
+     * @param event ActionEvent when search button is clicked
+     */
     @FXML
     void SearchAppointments(ActionEvent event) {
         ObservableList<Appointment> updateTable = lookupAppointment(SearchTextField.getText());
         AppointmentsTable.setItems(updateTable);
     }
 
+    /** Helper function for Search Functionality
+     * Gets Appointment List based on Search input
+     * @param input String value of search text
+     * @return ObservableList List of Appointments
+     */
     private static ObservableList<Appointment> lookupAppointment(String input) {
         ObservableList<Appointment> appointmentList = FXCollections.observableArrayList();
 
@@ -247,6 +273,11 @@ public class AppointmentsController implements Initializable {
         return appointmentList;
     }
 
+    /** This method initializes the table in the Appointments View.
+     *  Catches Exception, throws alert, and prints stacktrace.
+     *  @param location Location to resolve relative paths
+     *  @param resources Resources to localize root object
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         AllRadioButton.setToggleGroup(ToggleView);

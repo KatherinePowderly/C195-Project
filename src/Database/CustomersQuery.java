@@ -8,10 +8,14 @@ import javafx.collections.ObservableList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 
+/** This class contains SQL operations made on the Customers Collection.*/
 public class CustomersQuery {
 
+    /** This method gets all Customers and First-Level-Division Objects joined by the Division ID
+     * @return ObservableList Returns list of Customers
+     * @throws SQLException Catches SQLException, prints stacktrace, and error message.
+     */
     public static ObservableList<Customer> getCustomers() throws SQLException {
         ObservableList<Customer> customers = FXCollections.observableArrayList();
 
@@ -47,6 +51,15 @@ public class CustomersQuery {
         }
     }
 
+    /** This method creates a new Customer
+     * @param name String value of Customer Name
+     * @param address String value of Customer Address
+     * @param postalCode String value of Customer Postal Code
+     * @param phone String value of Customer Phone Number
+     * @param division String value of Division Name
+     * @return Boolean Returns true if the customer was successfully created and false if the customer creation failed
+     * @throws SQLException Catches SQLException, prints stacktrace, and error message.
+     */
     public static boolean createCustomer(String name, String address, String postalCode, String phone, String division) throws SQLException {
 
         Division newDivision = DivisionQuery.getDivisionId(division);
@@ -76,6 +89,16 @@ public class CustomersQuery {
         }
     }
 
+    /** This method updates an existing Customer by Customer ID
+     * @param customerId Int value of Customer ID
+     * @param name String value of Customer Name
+     * @param address String value of Customer Address
+     * @param postalCode String value of Customer Postal Code
+     * @param phone String value of Customer Phone Number
+     * @param division String value of Division Name
+     * @return Boolean Returns true if the customer was successfully updated and false if the customer update failed
+     * @throws SQLException Catches SQLException, prints stacktrace, and error message.
+     */
     public static boolean updateCustomer(int customerId, String name, String address, String postalCode, String phone, String division) throws SQLException {
         Division newDivision = DivisionQuery.getDivisionId(division);
 
@@ -105,7 +128,11 @@ public class CustomersQuery {
         }
     }
 
-
+    /** This method deletes an existing Customer
+     * @param customerId Int of Customer ID
+     * @return Boolean Returns true if the customer was successfully deleted and false if the customer deletion failed
+     * @throws SQLException Catches SQLException, prints stacktrace, and error message.
+     */
     public static boolean deleteCustomer(int customerId) throws SQLException {
         String insertStatement = "DELETE from customers WHERE Customer_Id=?";
 
