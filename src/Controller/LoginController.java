@@ -21,10 +21,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.time.ZoneId;
+import java.util.*;
 
 interface LogActivity{
     public String getFileName();
@@ -32,7 +30,7 @@ interface LogActivity{
 
 /** Login Controller
  *  - Lambda Expression created to pass Login Activity filename to functions: createFile, loginSuccess, and loginFailure.
- *  This reduces code and add re-usability to application
+ *  This reduces code and add re-usability to applicationn
  */
 public class LoginController implements Initializable {
 
@@ -41,6 +39,8 @@ public class LoginController implements Initializable {
     LogActivity logActivity = () -> {
         return "login_activity.txt";
     };
+
+    private ResourceBundle resourceBundle;
 
     @FXML
     private Label Description;
@@ -67,6 +67,12 @@ public class LoginController implements Initializable {
     private Label UsernameLabel;
 
     @FXML
+    private Label TimeZoneField;
+
+    @FXML
+    private Label TimeZoneLabel;
+
+    @FXML
     private Label LocationLabel;
 
     @FXML
@@ -82,8 +88,8 @@ public class LoginController implements Initializable {
      */
     @FXML
     void Login(ActionEvent event) {
-        validateNotEmpty("Username", UsernameTextField.getText());
-        validateNotEmpty("Password", PasswordTextField.getText());
+        validateUsernameNotEmpty(UsernameTextField.getText());
+        validatePasswordNotEmpty(PasswordTextField.getText());
 
         createFile();
 
@@ -101,19 +107,26 @@ public class LoginController implements Initializable {
                     stage.show();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Dialog");
-                    alert.setContentText("Load Screen Error.");
-                    alert.showAndWait();
+
+
+
+                    if (Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle(resourceBundle.getString("errorDialog"));
+                        alert.setContentText(resourceBundle.getString("loadScreenError"));
+                        alert.showAndWait();
+                    }
                 }
             } else {
 
                 loginFailure();
 
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error Dialog");
-                alert.setContentText("Username and password is incorrect.");
-                alert.showAndWait();
+                if (Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle(resourceBundle.getString("errorDialog"));
+                    alert.setContentText(resourceBundle.getString("incorrectUsernamePassword"));
+                    alert.showAndWait();
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -121,7 +134,7 @@ public class LoginController implements Initializable {
     }
 
     /** Helper function to create login_activity.txt file if it doesn't already exist
-     *  Catches Exception, throws alert, and prints stacktrace.
+     *  Catches Exception and prints stacktrace.
      *  Retrieves file name value from Lambda Expression
      */
     private void createFile(){
@@ -137,17 +150,33 @@ public class LoginController implements Initializable {
         }
     }
 
-    /** Validates Username and Password Text Fields are not empty
+    /** Validates Username Text Field id not empty
      *  Catches Exception, throws alert, and prints stacktrace.
-     * @param label Label for Username and Password
-     * @param textField Text Field Value for Username and Password
+     * @param username Text Field Value for Username
      */
-    private void validateNotEmpty(String label, String textField){
-        if (textField.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setContentText(label + " is required");
-            alert.showAndWait();
+    private void validateUsernameNotEmpty(String username){
+        if (username.isEmpty()) {
+            if (Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle(resourceBundle.getString("errorDialog"));
+                alert.setContentText(resourceBundle.getString("usernameRequired"));
+                alert.showAndWait();
+            }
+        }
+    }
+
+    /** Validates Password Text Field id not empty
+     *  Catches Exception, throws alert, and prints stacktrace.
+     * @param password Text Field Value for Username
+     */
+    private void validatePasswordNotEmpty(String password){
+        if (password.isEmpty()) {
+            if (Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle(resourceBundle.getString("errorDialog"));
+                alert.setContentText(resourceBundle.getString("passwordRequired"));
+                alert.showAndWait();
+            }
         }
     }
 
@@ -169,31 +198,46 @@ public class LoginController implements Initializable {
                     if (appointment.getStartTime().isAfter(localDateTime) && appointment.getStartTime().isBefore(localDateTimePlus15)) {
                         upcomingAppointments.add(appointment);
 
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle("Appointment Alert");
-                        alert.setContentText("Appointment starts in less than 15 minutes \nAppointment ID: "
-                                + appointment.getAppointmentId() +
-                                "\nDate: " +
-                                appointment.getStartDate() +
-                                "\nTime: " + appointment.getStartTime().toLocalTime());
-                        alert.setResizable(true);
-                        alert.showAndWait();
+                        if (Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle(resourceBundle.getString("appointmentAlert"));
+                            alert.setContentText(
+                                    resourceBundle.getString("lessThanFifteenMin") +  // TODO: need to figure this out
+                                    "\n" +
+                                    resourceBundle.getString("appointmentId") +
+                                    " " +
+                                    + appointment.getAppointmentId() +
+                                    "\n" +
+                                    resourceBundle.getString("date") +
+                                    " " +
+                                    appointment.getStartDate() +
+                                    "\n" +
+                                    resourceBundle.getString("time") +
+                                    " " +
+                                    appointment.getStartTime().toLocalTime());
+                            alert.setResizable(true);
+                            alert.showAndWait();
+                        }
                     }
                 }
 
                 if (upcomingAppointments.size() < 1) {
+                    if (Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle(resourceBundle.getString("appointmentAlert"));
+                        alert.setContentText(resourceBundle.getString("noUpcomingAppointments"));
+                        alert.setResizable(true);
+                        alert.showAndWait();
+                    }
+                }
+            } else {
+                if (Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Appointment Alert");
-                    alert.setContentText("No upcoming appointments within the next 15 minutes");
+                    alert.setTitle(resourceBundle.getString("appointmentAlert"));
+                    alert.setContentText(resourceBundle.getString("noUpcomingAppointments"));
                     alert.setResizable(true);
                     alert.showAndWait();
                 }
-            } else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Appointment Alert");
-                alert.setContentText("No upcoming appointments within the next 15 minutes");
-                alert.setResizable(true);
-                alert.showAndWait();
             }
 
         } catch (SQLException e) {
@@ -245,7 +289,7 @@ public class LoginController implements Initializable {
         ResourceBundle resourceBundle = ResourceBundle.getBundle("Language/language", Locale.getDefault());
         if (Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")) {
             // CONFIRMATION is same in French and English
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, resourceBundle.getString("error"));
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, resourceBundle.getString("cancelError"));
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -262,8 +306,8 @@ public class LoginController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        resourceBundle = ResourceBundle.getBundle("Language/language", Locale.getDefault());
 
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("Language/language", Locale.getDefault());
         if (Locale.getDefault().getLanguage().equals("fr") || Locale.getDefault().getLanguage().equals("en")){
             Header.setText(resourceBundle.getString("header"));
             Description.setText(resourceBundle.getString("description"));
@@ -272,6 +316,8 @@ public class LoginController implements Initializable {
             PasswordLabel.setText(resourceBundle.getString("password"));
             LocationLabel.setText(resourceBundle.getString("location"));
             LocationField.setText(resourceBundle.getString("country"));
+            TimeZoneLabel.setText(resourceBundle.getString("timezone"));
+            TimeZoneField.setText(String.valueOf(ZoneId.of(TimeZone.getDefault().getID())));
             LoginButton.setText(resourceBundle.getString("login"));
             CancelButton.setText(resourceBundle.getString("cancel"));
         }
