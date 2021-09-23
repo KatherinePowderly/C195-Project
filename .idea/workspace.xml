@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/login_activity.txt" beforeDir="false" afterPath="$PROJECT_DIR$/login_activity.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ReportsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ReportsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Database/AppointmentsQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/AppointmentsQuery.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Database/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/DBConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View/Reports.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Reports.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -76,16 +74,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/View/Login.fxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
-              <caret line="26" column="20" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
-            </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Language/language_en_US.properties">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="119">
@@ -110,8 +98,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Database/DBConnection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="463">
-              <caret line="32" column="78" selection-start-line="32" selection-start-column="67" selection-end-line="32" selection-end-column="78" />
+            <state relative-caret-position="446">
+              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -120,11 +108,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Controller/ReportsController.java">
+        <entry file="file://$PROJECT_DIR$/src/Main/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="219" column="83" selection-start-line="219" selection-start-column="83" selection-end-line="219" selection-end-column="83" />
+            <state relative-caret-position="335">
+              <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
               <folding>
+                <element signature="n#!!doc" expanded="true" />
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
@@ -132,10 +121,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Database/ContactsQuery.java">
+        <entry file="file://$PROJECT_DIR$/src/Controller/AppointmentsController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="17" column="42" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
+            <state relative-caret-position="147">
+              <caret line="121" selection-start-line="121" selection-end-line="121" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -146,11 +135,23 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Database/AppointmentsQuery.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="315" column="50" selection-start-line="315" selection-start-column="50" selection-end-line="315" selection-end-column="50" />
+            <state relative-caret-position="173">
+              <caret line="67" column="67" lean-forward="true" selection-start-line="67" selection-start-column="67" selection-end-line="67" selection-end-column="67" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="138">
+                <caret line="32" column="178" selection-start-line="32" selection-start-column="178" selection-end-line="32" selection-end-column="178" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -186,10 +187,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Easter</find>
-      <find>9.00</find>
-      <find>Save</find>
-      <find>deleteApp</find>
       <find>sample.f</find>
       <find>Home</find>
       <find>Log</find>
@@ -213,9 +210,13 @@
       <find>Region</find>
       <find>Zone</find>
       <find>Location</find>
-      <find>TimeZone</find>
       <find>getAppointmentsByC</find>
       <find>getAppointmentsByU</find>
+      <find>User</find>
+      <find>TimeZone</find>
+      <find>WeekRadio</find>
+      <find>month</find>
+      <find>getappoint</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -276,9 +277,9 @@
         <option value="$PROJECT_DIR$/src/Controller/LoginController.java" />
         <option value="$PROJECT_DIR$/src/Language/language_fr.properties" />
         <option value="$PROJECT_DIR$/src/Language/language_en_US.properties" />
-        <option value="$PROJECT_DIR$/src/Database/DBConnection.java" />
         <option value="$PROJECT_DIR$/src/View/Reports.fxml" />
         <option value="$PROJECT_DIR$/src/Controller/ReportsController.java" />
+        <option value="$PROJECT_DIR$/src/Database/DBConnection.java" />
         <option value="$PROJECT_DIR$/src/Database/AppointmentsQuery.java" />
       </list>
     </option>
@@ -367,6 +368,24 @@
             <path>
               <item name="C195-Project" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 11 &gt;" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="C195-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 11 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="java.sql" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="C195-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 11 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="java.sql" type="462c0819:PsiDirectoryNode" />
+              <item name="sql" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="C195-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
               <item name="lib" type="70bed36:NamedLibraryElementNode" />
             </path>
             <path>
@@ -402,7 +421,7 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1632425921217" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1632427573238" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$USER_HOME$/jfx/javafx-sdk-11.0.2/lib" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -527,6 +546,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1519" height="977" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.26182318" />
       <window_info id="Structure" order="1" weight="0.8291572" />
@@ -537,8 +557,8 @@
       <window_info id="Capture Tool" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32781065" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.19881657" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.41538462" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.19881657" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.41538462" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3289941" />
@@ -625,20 +645,8 @@
           <option name="timeStamp" value="102" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Controller/AppointmentsController.java</url>
-          <line>124</line>
-          <properties />
-          <option name="timeStamp" value="104" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/Controller/AppointmentsController.java</url>
-          <line>125</line>
-          <properties />
-          <option name="timeStamp" value="105" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Database/AppointmentsQuery.java</url>
-          <line>140</line>
+          <line>142</line>
           <properties />
           <option name="timeStamp" value="122" />
         </line-breakpoint>
@@ -656,7 +664,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Database/AppointmentsQuery.java</url>
-          <line>164</line>
+          <line>166</line>
           <properties />
           <option name="timeStamp" value="152" />
         </line-breakpoint>
@@ -674,19 +682,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Controller/ReportsController.java</url>
-          <line>101</line>
+          <line>99</line>
           <properties />
           <option name="timeStamp" value="194" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Controller/ReportsController.java</url>
-          <line>103</line>
+          <line>101</line>
           <properties />
           <option name="timeStamp" value="195" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Controller/ReportsController.java</url>
-          <line>107</line>
+          <line>105</line>
           <properties />
           <option name="timeStamp" value="197" />
         </line-breakpoint>
@@ -708,8 +716,61 @@
           <properties />
           <option name="timeStamp" value="205" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Database/AppointmentsQuery.java</url>
+          <line>113</line>
+          <properties />
+          <option name="timeStamp" value="206" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Database/AppointmentsQuery.java</url>
+          <line>115</line>
+          <properties />
+          <option name="timeStamp" value="207" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Database/AppointmentsQuery.java</url>
+          <line>116</line>
+          <properties />
+          <option name="timeStamp" value="208" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Database/AppointmentsQuery.java</url>
+          <line>119</line>
+          <properties />
+          <option name="timeStamp" value="209" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Database/AppointmentsQuery.java</url>
+          <line>123</line>
+          <properties />
+          <option name="timeStamp" value="210" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Database/AppointmentsQuery.java</url>
+          <line>122</line>
+          <properties />
+          <option name="timeStamp" value="211" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Database/AppointmentsQuery.java</url>
+          <line>125</line>
+          <properties />
+          <option name="timeStamp" value="213" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Database/AppointmentsQuery.java</url>
+          <line>144</line>
+          <properties />
+          <option name="timeStamp" value="214" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="queryStatement" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -849,6 +910,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="867">
           <caret line="51" column="33" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -876,6 +940,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" column="40" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -932,17 +999,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/View/Home.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -961,35 +1017,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/AppointmentsController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-122">
-          <caret line="260" column="50" selection-start-line="260" selection-start-column="50" selection-end-line="260" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/login_activity.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1071">
           <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="153">
-            <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="551">
-          <caret line="46" column="80" lean-forward="true" selection-start-line="46" selection-start-column="80" selection-end-line="46" selection-end-column="80" />
         </state>
       </provider>
     </entry>
@@ -1076,23 +1107,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/CustomersController.java">
+    <entry file="file://$PROJECT_DIR$/src/Database/ContactsQuery.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2656">
-          <caret line="246" column="20" selection-start-line="246" selection-end-line="247" />
+        <state relative-caret-position="-428">
+          <caret line="23" column="77" lean-forward="true" selection-start-line="23" selection-start-column="77" selection-end-line="23" selection-end-column="77" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Database/DBConnection.java">
+    <entry file="file://$PROJECT_DIR$/src/Controller/ReportsController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="32" column="78" selection-start-line="32" selection-start-column="67" selection-end-line="32" selection-end-column="78" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="-5077">
+          <caret line="8" column="40" lean-forward="true" selection-start-line="8" selection-start-column="40" selection-end-line="8" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -1104,20 +1132,56 @@
       </provider>
       <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Database/ContactsQuery.java">
+    <entry file="file://$PROJECT_DIR$/src/Database/DBConnection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="17" column="42" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
+        <state relative-caret-position="446">
+          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/ReportsController.java">
+    <entry file="file://$PROJECT_DIR$/src/Main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="219" column="83" selection-start-line="219" selection-start-column="83" selection-end-line="219" selection-end-column="83" />
+        <state relative-caret-position="335">
+          <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="138">
+            <caret line="32" column="178" selection-start-line="32" selection-start-column="178" selection-end-line="32" selection-end-column="178" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="46" column="80" lean-forward="true" selection-start-line="46" selection-start-column="80" selection-end-line="46" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/CustomersController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2656">
+          <caret line="246" column="20" selection-start-line="246" selection-end-line="247" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/AppointmentsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="121" selection-start-line="121" selection-end-line="121" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1126,8 +1190,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Database/AppointmentsQuery.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="315" column="50" selection-start-line="315" selection-start-column="50" selection-end-line="315" selection-end-column="50" />
+        <state relative-caret-position="173">
+          <caret line="67" column="67" lean-forward="true" selection-start-line="67" selection-start-column="67" selection-end-line="67" selection-end-column="67" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -63,12 +63,13 @@ public class AppointmentsQuery {
         LocalDateTime todaysDate = LocalDateTime.now();
         LocalDateTime lastMonth = todaysDate.minusDays(30);
 
-        String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Start > ?;";
+        String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Start < ? AND Start > ?;";
 
         DBQuery.setPreparedStatement(DBConnection.getConnection(), queryStatement);
         PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
 
-        preparedStatement.setDate(1, java.sql.Date.valueOf(lastMonth.toLocalDate()));
+        preparedStatement.setDate(1, java.sql.Date.valueOf(todaysDate.toLocalDate()));
+        preparedStatement.setDate(2, java.sql.Date.valueOf(lastMonth.toLocalDate()));
 
         try {
             preparedStatement.execute();
@@ -110,12 +111,13 @@ public class AppointmentsQuery {
         LocalDateTime todaysDate = LocalDateTime.now();
         LocalDateTime lastWeek = todaysDate.minusDays(7);
 
-        String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Start > ?;";
+        String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE Start < ? AND Start > ?;";
 
         DBQuery.setPreparedStatement(DBConnection.getConnection(), queryStatement);
         PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
 
-        preparedStatement.setDate(1, java.sql.Date.valueOf(lastWeek.toLocalDate()));
+        preparedStatement.setDate(1, java.sql.Date.valueOf(todaysDate.toLocalDate()));
+        preparedStatement.setDate(2, java.sql.Date.valueOf(lastWeek.toLocalDate()));
 
         try {
             preparedStatement.execute();
