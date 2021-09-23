@@ -313,20 +313,20 @@ public class AppointmentsQuery {
         }
     }
 
-    /** This method gets an Appointment by User ID
-     * @param UserID Int value of User ID
+    /** This method gets an Appointment by Contact ID
+     * @param contactID Int value of Contact ID
      * @return ObservableList List of Appointments
      * @throws SQLException Catches SQLException, prints stacktrace, and error message.
      */
-    public static ObservableList<Appointment> getAppointmentsByUserID(int UserID) throws SQLException {
+    public static ObservableList<Appointment> getAppointmentsByContactID(int contactID) throws SQLException {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
-        String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE User_ID=?;";
+        String queryStatement = "SELECT * FROM appointments AS a INNER JOIN contacts AS c ON a.Contact_ID=c.Contact_ID WHERE a.Contact_ID=?;";
 
         DBQuery.setPreparedStatement(DBConnection.getConnection(), queryStatement);
         PreparedStatement preparedStatement = DBQuery.getPreparedStatement();
 
-        preparedStatement.setInt(1, UserID);
+        preparedStatement.setInt(1, contactID);
 
         try {
             preparedStatement.execute();

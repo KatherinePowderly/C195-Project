@@ -1,11 +1,11 @@
 package Controller;
 
 import Database.AppointmentsQuery;
+import Database.ContactsQuery;
 import Database.CustomersQuery;
-import Database.UsersQuery;
 import Model.Appointment;
+import Model.Contact;
 import Model.Customer;
-import Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -59,7 +59,7 @@ public class ReportsController implements Initializable {
     private RadioButton MonthRadioButton;
 
     @FXML
-    private ComboBox<Integer> UserCombo;
+    private ComboBox<Integer> ContactCombo;
 
     @FXML
     private ComboBox<Integer> CustomerCombo;
@@ -207,24 +207,24 @@ public class ReportsController implements Initializable {
         }
     }
 
-    /** This method generates appointment reports by selected user
-     *  Schedules are displayed on a dialog box per appointment on file for selected User
+    /** This method generates appointment reports by selected contact
+     *  Schedules are displayed on a dialog box per appointment on file for selected Contact
      *  @param event Generates report based on Combo Box field selected
      */
     @FXML
     void Generate2(ActionEvent event) {
-        Integer userID = UserCombo.getSelectionModel().getSelectedItem();
+        Integer contactID = ContactCombo.getSelectionModel().getSelectedItem();
         try {
-            ObservableList<Appointment> appointments = AppointmentsQuery.getAppointmentsByUserID(userID);
+            ObservableList<Appointment> appointments = AppointmentsQuery.getAppointmentsByContactID(contactID);
 
 
             if (appointments != null) {
                 for (Appointment appointment: appointments) {
 
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Report: Customer Appointment by User ID");
+                    alert.setTitle("Report: Customer Appointment by Contact ID");
 
-                    alert.setContentText("Appointments by User ID #" + userID + ": " +
+                    alert.setContentText("Appointments by Contact ID #" + contactID + ": " +
                             "\nAppointment ID: " + appointment.getAppointmentId() +
                             "\nTitle: " + appointment.getTitle() +
                             "\nType: " + appointment.getType() +
@@ -233,7 +233,8 @@ public class ReportsController implements Initializable {
                             "\nStart Time: " + appointment.getStartTime() +
                             "\nEnd Date: " + appointment.getEndDate() +
                             "\nEnd Time: " + appointment.getEndTime() +
-                            "\nCustomer ID: " + appointment.getCustomerId()
+                            "\nCustomer ID: " + appointment.getCustomerId() +
+                            "\nUser ID: " + appointment.getUserId()
                     );
 
                     alert.setResizable(true);
@@ -286,23 +287,25 @@ public class ReportsController implements Initializable {
         }
     }
 
-    /** Populates User ID Combo Box with User ID List
+    /** Populates Contact ID Combo Box with Contact ID List
      */
-    private void populateUserIDComboBox() {
-        ObservableList<Integer> userIDComboList = FXCollections.observableArrayList();
+    private void populateContactIDComboBox() {
+        ObservableList<Integer> contactIDComboList = FXCollections.observableArrayList();
 
         try {
-            ObservableList<User> users = UsersQuery.getUsers();
-            if (users != null) {
-                for (User user: users) {
-                    userIDComboList.add(user.getUserId());
+            ObservableList<Contact> contacts = ContactsQuery.getContacts();
+            if (contacts != null) {
+                for (Contact contact: contacts) {
+                    if (!contactIDComboList.contains(contact.getContactId())) {
+                        contactIDComboList.add(contact.getContactId());
+                    }
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        UserCombo.setItems(userIDComboList);
+        ContactCombo.setItems(contactIDComboList);
     }
 
     /** Populates Customer ID Combo Box with Customer ID List
@@ -331,6 +334,6 @@ public class ReportsController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         populateCustomerIDComboBox();
-        populateUserIDComboBox();
+        populateContactIDComboBox();
     }
 }
