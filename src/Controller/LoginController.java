@@ -202,7 +202,7 @@ public class LoginController implements Initializable {
                             Alert alert = new Alert(Alert.AlertType.INFORMATION);
                             alert.setTitle(resourceBundle.getString("appointmentAlert"));
                             alert.setContentText(
-                                    resourceBundle.getString("lessThanFifteenMin") +  // TODO: need to figure this out
+                                    resourceBundle.getString("lessThanFifteenMin") +
                                     "\n" +
                                     resourceBundle.getString("appointmentId") +
                                     " " +

@@ -5,7 +5,6 @@ Contact: kpowder@wgu.edu
 Application Version: 1.0.0
 Date: 09/20/2021
 
-
 IDE Version: IntelliJ IDEA 2018.2.8 (Community Edition)
              Build #IC-182.5262.2, built on March 28, 2019
              JRE: 1.8.0_152-release-1248-b22 amd64
@@ -19,6 +18,8 @@ JDK:        java version "11.0.2" 2019-01-15 LTS
 JavaFX version: javafx.version=11.0.2
                 javafx.runtime.version=11.0.2+1
                 javafx.runtime.build=1
+                
+Database Driver: 8.0.22
                 
 --- 
 

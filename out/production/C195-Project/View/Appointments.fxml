@@ -10,43 +10,43 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #ccc6ee;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AppointmentsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="828.0" style="-fx-background-color: #ccc6ee;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AppointmentsController">
    <children>
-      <TableView fx:id="AppointmentsTable" layoutX="13.0" layoutY="83.0" prefHeight="342.0" prefWidth="674.0">
+      <TableView fx:id="AppointmentsTable" layoutX="13.0" layoutY="83.0" prefHeight="342.0" prefWidth="800.0">
          <columns>
             <TableColumn fx:id="AppointmentIDColumn" prefWidth="57.0" text="Appt. ID" />
-            <TableColumn fx:id="TitleColumn" prefWidth="38.0" text="Title" />
-            <TableColumn fx:id="DescriptionColumn" prefWidth="64.0" text="Desc." />
+            <TableColumn fx:id="TitleColumn" prefWidth="43.0" text="Title" />
+            <TableColumn fx:id="DescriptionColumn" prefWidth="59.0" text="Desc." />
             <TableColumn fx:id="LocationColumn" prefWidth="67.0" text="Location" />
             <TableColumn fx:id="ContactColumn" maxWidth="7000.0" prefWidth="97.0" text="Contact" />
-            <TableColumn fx:id="TypeColumn" prefWidth="53.0" text="Type" />
-            <TableColumn fx:id="StartDateTimeColumn" prefWidth="85.0" text="Start Date/Time" />
-            <TableColumn fx:id="EndDateTimeColumn" prefWidth="69.0" text="End Date/Time" />
-            <TableColumn fx:id="CustomerIDColumn" prefWidth="68.0" text="Cust. ID" />
-            <TableColumn fx:id="UserIDColumn" prefWidth="75.0" text="User ID" />
+            <TableColumn fx:id="TypeColumn" prefWidth="68.0" text="Type" />
+            <TableColumn fx:id="StartDateTimeColumn" prefWidth="120.0" text="Start Date/Time" />
+            <TableColumn fx:id="EndDateTimeColumn" prefWidth="156.0" text="End Date/Time" />
+            <TableColumn fx:id="CustomerIDColumn" prefWidth="65.0" text="Cust. ID" />
+            <TableColumn fx:id="UserIDColumn" prefWidth="67.0" text="User ID" />
          </columns>
       </TableView>
-      <Button fx:id="CreateAppointmentButton" layoutX="117.0" layoutY="438.0" mnemonicParsing="false" onAction="#CreateAppointment" text="CREATE APPT." />
-      <Button fx:id="UpdateCustomerButton" layoutX="291.0" layoutY="438.0" mnemonicParsing="false" onAction="#UpdateAppointment" text="UPDATE APPT." />
-      <Button fx:id="DeleteAppointmentButton" layoutX="470.0" layoutY="438.0" mnemonicParsing="false" onAction="#DeleteAppointment" text="DELETE APPT." />
-      <Label fx:id="Header" layoutX="222.0" layoutY="-1.0" text="APPOINTMENTS" textAlignment="CENTER">
+      <Button fx:id="CreateAppointmentButton" layoutX="101.0" layoutY="438.0" mnemonicParsing="false" onAction="#CreateAppointment" text="CREATE APPT." />
+      <Button fx:id="UpdateCustomerButton" layoutX="343.0" layoutY="438.0" mnemonicParsing="false" onAction="#UpdateAppointment" text="UPDATE APPT." />
+      <Button fx:id="DeleteAppointmentButton" layoutX="593.0" layoutY="438.0" mnemonicParsing="false" onAction="#DeleteAppointment" text="DELETE APPT." />
+      <Label fx:id="Header" layoutX="327.0" layoutY="8.0" text="APPOINTMENTS" textAlignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="HomeButton" mnemonicParsing="false" onAction="#Home" style="-fx-background-color: #ccc6ee;" text="SIMPLY">
+      <Button fx:id="HomeButton" mnemonicParsing="false" onAction="#Home" prefHeight="55.0" prefWidth="122.0" style="-fx-background-color: #ccc6ee;" text="SIMPLY">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <RadioButton fx:id="AllRadioButton" layoutX="13.0" layoutY="51.0" mnemonicParsing="false" onAction="#ViewToggle" selected="true" text="ALL">
+      <RadioButton fx:id="AllRadioButton" layoutX="22.0" layoutY="51.0" mnemonicParsing="false" onAction="#ViewToggle" selected="true" text="ALL">
          <toggleGroup>
             <ToggleGroup fx:id="ToggleView" />
          </toggleGroup></RadioButton>
-      <RadioButton fx:id="WeekRadioButton" layoutX="91.0" layoutY="51.0" mnemonicParsing="false" onAction="#ViewToggle" text="WEEK" toggleGroup="$ToggleView" />
-      <RadioButton fx:id="MonthRadioButton" layoutX="185.0" layoutY="51.0" mnemonicParsing="false" onAction="#ViewToggle" text="MONTH" />
-      <Button fx:id="SearchButton" layoutX="610.0" layoutY="39.0" mnemonicParsing="false" onAction="#SearchAppointments" text="Search" />
-      <TextField fx:id="SearchTextField" layoutX="379.0" layoutY="39.0" promptText="Search by Appt. ID or Title">
+      <RadioButton fx:id="WeekRadioButton" layoutX="122.0" layoutY="51.0" mnemonicParsing="false" onAction="#ViewToggle" text="WEEK" toggleGroup="$ToggleView" />
+      <RadioButton fx:id="MonthRadioButton" layoutX="245.0" layoutY="51.0" mnemonicParsing="false" onAction="#ViewToggle" text="MONTH" />
+      <Button fx:id="SearchButton" layoutX="736.0" layoutY="39.0" mnemonicParsing="false" onAction="#SearchAppointments" text="Search" />
+      <TextField fx:id="SearchTextField" layoutX="502.0" layoutY="39.0" promptText="Search by Appt. ID or Title">
          <font>
             <Font name="System Italic" size="18.0" />
          </font>

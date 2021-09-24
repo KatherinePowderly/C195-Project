@@ -24,6 +24,7 @@ import java.sql.SQLException;
 import java.time.*;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 /** Controller to Update Appointment
  */
@@ -129,6 +130,10 @@ public class UpdateAppointmentController implements Initializable {
      */
     private ZonedDateTime convertToEST(LocalDateTime time) {
         return ZonedDateTime.of(time, ZoneId.of("America/New_York"));
+    }
+
+    private ZonedDateTime convertToTimeZone(LocalDateTime time, String zoneId) {
+        return ZonedDateTime.of(time, ZoneId.of(zoneId));
     }
 
     @FXML
@@ -561,6 +566,9 @@ public class UpdateAppointmentController implements Initializable {
         try {
             Appointment appointment = AppointmentsQuery.getAppointmentByAppointmentID(selectedAppointment.getAppointmentId());
 
+            ZonedDateTime zonedStartTime = convertToTimeZone(appointment.getStartDate().atTime(appointment.getStartTime().toLocalTime()), String.valueOf(ZoneId.of(TimeZone.getDefault().getID())));
+            ZonedDateTime zonedEndTime = convertToTimeZone(appointment.getEndDate().atTime(appointment.getEndTime().toLocalTime()), String.valueOf(ZoneId.of(TimeZone.getDefault().getID())));
+
             if (appointment != null) {
                 ContactCombo.getSelectionModel().select(appointment.getContactName());
                 TitleTextField.setText(appointment.getTitle());
@@ -570,9 +578,9 @@ public class UpdateAppointmentController implements Initializable {
                 UserIDCombo.getSelectionModel().select(Integer.valueOf(appointment.getUserId()));
                 AppointmentIDTextField.setText(String.valueOf(appointment.getAppointmentId()));
                 StartDateDatePicker.setValue(appointment.getStartDate());
-                StartTimeCombo.getSelectionModel().select(String.valueOf(appointment.getStartTime().toLocalTime()));
+                StartTimeCombo.getSelectionModel().select(String.valueOf(zonedStartTime.toLocalTime()));
                 EndDateDatePicker.setValue(appointment.getEndDate());
-                EndTimeCombo.getSelectionModel().select(String.valueOf(appointment.getEndTime().toLocalTime()));
+                EndTimeCombo.getSelectionModel().select(String.valueOf(zonedEndTime.toLocalTime()));
                 CustomerIDCombo.getSelectionModel().select(Integer.valueOf(appointment.getCustomerId()));
             }
         } catch (SQLException e) {
